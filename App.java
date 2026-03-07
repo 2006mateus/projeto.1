@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
-public class App
-{
-    public static void main(String[] args){
+public class App {
+    public static void main(String[] args) {
         int comandos = -1;
 
         Scanner leitor = new Scanner (System.in);
@@ -21,17 +20,17 @@ public class App
         rato.vivo = 1;
         rato.ataque = 5;
 
-        carta_escudo protecao = new carta_escudo();
+        CartaEscudo protecao = new CartaEscudo();
         protecao.nome = "cavalo";
         protecao.custo = 5;
         protecao.escudo = 5;
 
-        carta_dano arma = new carta_dano();
+        CartaDano arma = new CartaDano();
         arma.nome = "Clarissa";
         arma.custo = 3;
         arma.dano = 5;
 
-        while (comandos != 0){
+        while (comandos != 0) {
             heroi.escudo = 0;
             heroi.energia = 30;
             System.out.println(heroi.nome + " (" + heroi.vida + "/40)" + "   (" + heroi.escudo + "/5)");
@@ -45,26 +44,26 @@ public class App
 
             comandos = leitor.nextInt();
 
-            if (comandos == 1){
-                if (heroi.energia < arma.custo){
+            if (comandos == 1) {
+                if (heroi.energia < arma.custo) {
                     System.out.println("Nao ha energia suficiente");
                 } else {
                     rato.receber_dano_inimigo(arma.dano, rato);
                     heroi.energia -= arma.custo;
                 }
-            } else if (comandos == 2){
-                if (heroi.energia < protecao.custo){
+            } else if (comandos == 2) {
+                if (heroi.energia < protecao.custo) {
                     System.out.println("Nao ha energia suficiente");
                 } else {
                     heroi.ganhar_escudo(protecao.escudo, heroi);
                     heroi.energia -= protecao.custo;
                 }
-            } else if (comandos == 3){
+            } else if (comandos == 3) {
                 heroi.receber_dano(rato.ataque, heroi);
                 break;
             }
 
-            if (heroi.vida == 0){
+            if (heroi.vida == 0) {
                 heroi.vivo = 0;
                 comandos = 0;
                 break;

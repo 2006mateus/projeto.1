@@ -1,4 +1,4 @@
-public class carta_dano {
+public class CartaDano {
     String nome;
     int custo;
     int dano;
