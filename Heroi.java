@@ -3,6 +3,7 @@ public class Heroi {
     int vida;
     int escudo;
     int vivo;
+    int energia;
 
     public static void receber_dano(int dano, Heroi heroi){
         if (dano >= (heroi.vida + heroi.escudo)){

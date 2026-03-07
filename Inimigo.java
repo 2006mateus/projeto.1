@@ -15,7 +15,7 @@ public class Inimigo {
         }
     }
 
-    public static void atacar(Heroi heroi, int ataque){
-        
+    public static void ganhar_escudo_inimigo(int escudo, Inimigo inimigo){
+        inimigo.escudo += escudo;
     }
 }
