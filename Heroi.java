@@ -5,7 +5,7 @@ public class Heroi {
     int vivo;
     int energia;
 
-    public static void receber_dano(int dano, Heroi heroi){
+    public void receber_dano(int dano, Heroi heroi){
         if (dano >= (heroi.vida + heroi.escudo)){
             heroi.vida = 0;
         } else if (heroi.escudo >= dano){ 
@@ -15,11 +15,11 @@ public class Heroi {
         }
     }
 
-    public static void ganhar_escudo(int escudo, Heroi heroi){
+    public void ganhar_escudo(int escudo, Heroi heroi){
         heroi.escudo += escudo;
     }
 
-    public static void esta_vivo(Heroi heroi){
+    public void esta_vivo(Heroi heroi){
         if (heroi.vida == 0){
             heroi.vivo = 0;
         }

@@ -5,7 +5,7 @@ public class Inimigo {
     int vivo;
     int ataque;
 
-    public static void receber_dano_inimigo(int dano, Inimigo inimigo){
+    public void receber_dano_inimigo(int dano, Inimigo inimigo){
         if (dano >= (inimigo.vida + inimigo.escudo)){
             inimigo.vida = 0;
         } else if (inimigo.escudo >= dano){ 
@@ -15,7 +15,7 @@ public class Inimigo {
         }
     }
 
-    public static void ganhar_escudo_inimigo(int escudo, Inimigo inimigo){
+    public void ganhar_escudo_inimigo(int escudo, Inimigo inimigo){
         inimigo.escudo += escudo;
     }
 }

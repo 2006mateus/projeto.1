@@ -12,10 +12,8 @@ public class App
 
         Heroi heroi = new Heroi();
         heroi.nome = nome;
-        heroi.escudo = 5;
         heroi.vida = 40;
         heroi.vivo = 1;
-        heroi.energia = 30;
 
         Inimigo rato = new Inimigo();
         rato.nome = "Pachioni";
@@ -34,9 +32,11 @@ public class App
         arma.dano = 5;
 
         while (comandos != 0){
-            System.out.println(heroi.nome + " (" + heroi.vida + "/40)" + "   (" + heroi.escudo + "/5");
+            heroi.escudo = 0;
+            heroi.energia = 30;
+            System.out.println(heroi.nome + " (" + heroi.vida + "/40)" + "   (" + heroi.escudo + "/5)");
             System.out.println("vs");
-            System.out.println(rato.nome + " (" + rato.vida + "/20");
+            System.out.println(rato.nome + " (" + rato.vida + "/20)");
 
             System.out.println(heroi.energia + "/" + "30 de Energia disponivel");
             System.out.println("1 - Usar " + arma.nome);
@@ -46,20 +46,33 @@ public class App
             comandos = leitor.nextInt();
 
             if (comandos == 1){
-                receber_dano_inimigo(arma.dano, rato);
-                heroi.energia -= arma.custo;
+                if (heroi.energia < arma.custo){
+                    System.out.println("Nao ha energia suficiente");
+                } else {
+                    rato.receber_dano_inimigo(arma.dano, rato);
+                    heroi.energia -= arma.custo;
+                }
             } else if (comandos == 2){
-                ganhar_escudo(protecao.escudo, heroi);
-                heroi.energia -= protecao.custo;
+                if (heroi.energia < protecao.custo){
+                    System.out.println("Nao ha energia suficiente");
+                } else {
+                    heroi.ganhar_escudo(protecao.escudo, heroi);
+                    heroi.energia -= protecao.custo;
+                }
             } else if (comandos == 3){
-                receber_dano(rato.ataque, heroi);
+                heroi.receber_dano(rato.ataque, heroi);
+                break;
             }
 
             if (heroi.vida == 0){
+                heroi.vivo = 0;
                 comandos = 0;
+                break;
             }
         }
-        
+
+        System.out.println(heroi.nome + "foi enrolado por" + rato.nome + " e foi para casa!");
+
 
         leitor.close();
     }
