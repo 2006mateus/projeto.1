@@ -80,16 +80,17 @@ public class App {
             } else if (comandos == 3) {
                 heroi.receber_dano(rato.ataque, heroi);
             }
-            if (heroi.vida == 0 || comandos == 0) {
+            if (heroi.vida == 0) {
                 heroi.vivo = 0;
                 comandos = 0;
                 jogando = 0;
+                System.out.println(heroi.nome + " foi enrolado por " + rato.nome + " e foi para casa!");
+                break;
+            } else if (comandos == 0) {
+                System.out.println(heroi.nome + " saiu do jogo!");
                 break;
             }
         }
-
-        System.out.println(heroi.nome + " foi enrolado por " + rato.nome + " e foi para casa!");
-
 
         leitor.close();
     }
