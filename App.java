@@ -46,6 +46,7 @@ public class App {
                 System.out.println("1 - Usar " + arma.nome);
                 System.out.println("2 - Usar " + protecao.nome);
                 System.out.println("3 - Encerrar turno");
+                System.out.println("0 - Sair do jogo");
 
                 comandos = leitor.nextInt();
 
@@ -79,7 +80,7 @@ public class App {
             } else if (comandos == 3) {
                 heroi.receber_dano(rato.ataque, heroi);
             }
-            if (heroi.vida == 0) {
+            if (heroi.vida == 0 || comandos == 0) {
                 heroi.vivo = 0;
                 comandos = 0;
                 jogando = 0;
