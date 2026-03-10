@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         int comandos = -1;
-        int jogando = 1;
+        boolean jogando = true;
 
         Scanner leitor = new Scanner (System.in);
 
@@ -13,12 +13,12 @@ public class App {
         Heroi heroi = new Heroi();
         heroi.nome = nome;
         heroi.vida = 40;
-        heroi.vivo = 1;
+        heroi.vivo = true;
 
         Inimigo rato = new Inimigo();
         rato.nome = "Pachioni";
         rato.vida = 20;
-        rato.vivo = 1;
+        rato.vivo = true;
         rato.ataque = 5;
 
         CartaEscudo protecao = new CartaEscudo();
@@ -31,7 +31,7 @@ public class App {
         arma.custo = 3;
         arma.dano = 5;
 
-        while(jogando == 1) {
+        while(jogando == true) {
             heroi.escudo = 0;
             heroi.energia = 30;
 
@@ -78,7 +78,7 @@ public class App {
             if (rato.vida != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
                 heroi.receber_dano(rato.ataque, heroi);
             } else if (comandos == 3) {
-                heroi.receber_dano(rato.ataque, heroi);
+                rato.ataque(heroi);
             }
             if (heroi.vida == 0) {
                 heroi.vivo = 0;

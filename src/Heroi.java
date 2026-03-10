@@ -2,7 +2,7 @@ public class Heroi {
     String nome;
     int vida;
     int escudo;
-    int vivo;
+    boolean vivo;
     int energia;
 
     public void receber_dano(int dano, Heroi heroi) {
@@ -20,8 +20,10 @@ public class Heroi {
     }
 
     public void esta_vivo(Heroi heroi) {
-        if (heroi.vida == 0){
-            heroi.vivo = 0;
+        if (heroi.vida <= 0){
+            heroi.vivo = false;
+        } else {
+            heroi.vivo = true;
         }
     }
 }

@@ -2,7 +2,7 @@ public class Inimigo {
     String nome;
     int vida;
     int escudo;
-    int vivo;
+    boolean vivo;
     int ataque;
 
     public void receber_dano_inimigo(int dano, Inimigo inimigo) {
@@ -15,7 +15,15 @@ public class Inimigo {
         }
     }
 
-    public void ganhar_escudo_inimigo(int escudo, Inimigo inimigo) {
-        inimigo.escudo += escudo;
+    public void atacar(Heroi heroi){
+        heroi.vida -= ataque;
+    }
+
+    public void esta_vivo_inimigo(Inimigo inimigo){
+        if (inimigo.vida <= 0){
+            inimigo.vivo = false;
+        } else {
+            inimigo.vivo = true;
+        }
     }
 }
