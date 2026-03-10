@@ -55,7 +55,7 @@ public class App {
                         System.out.println("Nao ha energia suficiente");
                     } else {
                         rato.receber_dano_inimigo(arma.dano, rato);
-                        heroi.energia -= arma.custo;
+                        arma.usar(rato, heroi);
                         if (rato.vida == 0) {
                             rato.vida = 20; /*só vem outro rato pq ainda nao tem outros inimigos*/
                             System.out.println(rato.nome + " foi aniquilado!");
@@ -66,7 +66,7 @@ public class App {
                         System.out.println("Nao ha energia suficiente");
                     } else {
                         heroi.ganhar_escudo(protecao.escudo, heroi);
-                        heroi.energia -= protecao.custo;
+                        protecao.usar(heroi);
                     }
                 } else if (comandos == 3) {
                     if (heroi.vivo == false) {

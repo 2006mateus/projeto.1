@@ -4,6 +4,6 @@ public class CartaEscudo {
     int custo;
 
     public void usar(Heroi heroi){
-        heroi.escudo += escudo;
+        heroi.energia -= custo;
     }
 }

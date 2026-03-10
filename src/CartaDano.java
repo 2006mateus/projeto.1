@@ -3,7 +3,8 @@ public class CartaDano {
     int custo;
     int dano;
 
-    public void usar(Inimigo inimigo){
+    public void usar(Inimigo inimigo, Heroi heroi){
         inimigo.vida -= dano;
+        heroi.energia -= custo;
     }
 }
