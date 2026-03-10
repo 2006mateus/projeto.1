@@ -69,8 +69,8 @@ public class App {
                         heroi.energia -= protecao.custo;
                     }
                 } else if (comandos == 3) {
-                    if (heroi.vida == 0) {
-                        jogando = 0;
+                    if (heroi.vivo == false) {
+                        jogando = false;
                     }
                     break;
                 }
@@ -78,12 +78,12 @@ public class App {
             if (rato.vida != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
                 heroi.receber_dano(rato.ataque, heroi);
             } else if (comandos == 3) {
-                rato.ataque(heroi);
+                rato.atacar(heroi, rato.ataque);
             }
             if (heroi.vida == 0) {
-                heroi.vivo = 0;
+                heroi.vivo = false;
                 comandos = 0;
-                jogando = 0;
+                jogando = false;
                 System.out.println(heroi.nome + " foi enrolado por " + rato.nome + " e foi para casa!");
                 break;
             } else if (comandos == 0) {

@@ -15,8 +15,8 @@ public class Inimigo {
         }
     }
 
-    public void atacar(Heroi heroi){
-        heroi.vida -= ataque;
+    public void atacar(Heroi heroi, int atacar){
+        heroi.vida -= atacar;
     }
 
     public void esta_vivo_inimigo(Inimigo inimigo){
