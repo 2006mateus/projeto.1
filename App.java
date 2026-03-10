@@ -76,6 +76,8 @@ public class App {
             }
             if (rato.vida != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
                 heroi.receber_dano(rato.ataque, heroi);
+            } else if (comandos == 3) {
+                heroi.receber_dano(rato.ataque, heroi);
             }
             if (heroi.vida == 0) {
                 heroi.vivo = 0;
