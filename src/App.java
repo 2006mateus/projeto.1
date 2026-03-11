@@ -10,10 +10,7 @@ public class App {
         System.out.println("Digite o nome do heroi");
         String nome = leitor.nextLine();
 
-        Heroi heroi = new Heroi();
-        heroi.nome = nome;
-        heroi.vida = 40;
-        heroi.vivo = true;
+        Heroi heroi = new Heroi(nome, 40);
 
         Inimigo rato = new Inimigo();
         rato.nome = "rato";
@@ -32,17 +29,17 @@ public class App {
         arma.dano = 5;
 
         while(jogando == true) {
-            heroi.escudo = 0;
-            heroi.energia = 30;
+            heroi.set_escudo(0);;
+            heroi.set_energia(30);;
 
-            while (comandos != 0 && heroi.energia != 0) {
-                System.out.println(heroi.nome + " (" + heroi.vida + "/40)" + "   (" + heroi.escudo + "/5)");
+            while (comandos != 0 && heroi.get_energia() != 0) {
+                System.out.println(heroi.get_nome() + " (" + heroi.get_vida() + "/40)" + "   (" + heroi.get_escudo() + "/5)");
                 System.out.println("vs");
                 System.out.println(rato.nome + " (" + rato.vida + "/20)");
 
                 System.out.println();
 
-                System.out.println(heroi.energia + "/" + "30 de Energia disponivel");
+                System.out.println(heroi.get_energia() + "/" + "30 de Energia disponivel");
                 System.out.println("1 - Usar " + arma.nome);
                 System.out.println("2 - Usar " + protecao.nome);
                 System.out.println("3 - Encerrar turno");
@@ -51,7 +48,7 @@ public class App {
                 comandos = leitor.nextInt();
 
                 if (comandos == 1) {
-                    if (heroi.energia < arma.custo) {
+                    if (heroi.get_energia() < arma.custo) {
                         System.out.println("Nao ha energia suficiente");
                     } else {
                         rato.receber_dano_inimigo(arma.dano, rato);
@@ -62,14 +59,14 @@ public class App {
                         }
                     }
                 } else if (comandos == 2) {
-                    if (heroi.energia < protecao.custo) {
+                    if (heroi.get_energia() < protecao.custo) {
                         System.out.println("Nao ha energia suficiente");
                     } else {
-                        heroi.ganhar_escudo(protecao.escudo, heroi);
+                        heroi.ganhar_escudo(protecao.escudo);
                         protecao.usar(heroi);
                     }
                 } else if (comandos == 3) {
-                    if (heroi.vivo == false) {
+                    if (heroi.esta_vivo() == false) {
                         jogando = false;
                     }
                     break;
@@ -80,14 +77,13 @@ public class App {
             } else if (comandos == 3) {
                 rato.atacar(heroi, rato.ataque);
             }
-            if (heroi.vida == 0) {
-                heroi.vivo = false;
+            if (heroi.esta_vivo() == false) {
                 comandos = 0;
                 jogando = false;
-                System.out.println(heroi.nome + " foi derrotado por " + rato.nome + " e foi para casa!");
+                System.out.println(heroi.get_nome() + " foi derrotado por " + rato.nome + " e foi para casa!");
                 break;
             } else if (comandos == 0) {
-                System.out.println(heroi.nome + " saiu do jogo!");
+                System.out.println(heroi.get_nome() + " saiu do jogo!");
                 break;
             }
         }

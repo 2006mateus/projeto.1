@@ -1,9 +1,8 @@
 public class Heroi {
-    String nome;
-    int vida;
-    int escudo;
-    boolean vivo;
-    int energia;
+    private String nome;
+    private int vida;
+    private int escudo;
+    private int energia;
 
     public void receber_dano(int dano, Heroi heroi) {
         if (dano >= (heroi.vida + heroi.escudo)){
@@ -15,15 +14,44 @@ public class Heroi {
         }
     }
 
-    public void ganhar_escudo(int escudo, Heroi heroi) {
-        heroi.escudo += escudo;
+    public void ganhar_escudo(int escudo) {
+        this.escudo += escudo;
     }
 
-    public void esta_vivo(Heroi heroi) {
-        if (heroi.vida <= 0){
-            heroi.vivo = false;
+    public Boolean esta_vivo() {
+        if (this.vida <= 0){
+            return false;
         } else {
-            heroi.vivo = true;
+            return true;
         }
+    }
+
+    public int get_vida() {
+        return this.vida;
+    }
+
+    public String get_nome() {
+        return this.nome;
+    }
+
+    public void set_escudo(int escudo) {
+        this.escudo = escudo;
+    }
+
+    public int get_escudo() {
+        return this.escudo;
+    }
+
+    public void set_energia(int energia) {
+        this.energia = 30;
+    }
+
+    public int get_energia() {
+        return this.energia;
+    }
+
+    public Heroi(String nome, int vida) {
+        this.nome = nome;
+        this.vida = vida;
     }
 }
