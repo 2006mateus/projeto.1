@@ -16,18 +16,18 @@ public class App {
         heroi.vivo = true;
 
         Inimigo rato = new Inimigo();
-        rato.nome = "Pachioni";
+        rato.nome = "rato";
         rato.vida = 20;
         rato.vivo = true;
         rato.ataque = 5;
 
         CartaEscudo protecao = new CartaEscudo();
-        protecao.nome = "cavalo";
+        protecao.nome = "bandagem";
         protecao.custo = 5;
         protecao.escudo = 5;
 
         CartaDano arma = new CartaDano();
-        arma.nome = "Clarissa";
+        arma.nome = "tiro";
         arma.custo = 3;
         arma.dano = 5;
 
@@ -84,7 +84,7 @@ public class App {
                 heroi.vivo = false;
                 comandos = 0;
                 jogando = false;
-                System.out.println(heroi.nome + " foi enrolado por " + rato.nome + " e foi para casa!");
+                System.out.println(heroi.nome + " foi derrotado por " + rato.nome + " e foi para casa!");
                 break;
             } else if (comandos == 0) {
                 System.out.println(heroi.nome + " saiu do jogo!");
