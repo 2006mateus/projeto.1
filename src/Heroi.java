@@ -14,6 +14,10 @@ public class Heroi {
         }
     }
 
+    public void perderEnergia(int custo){
+        energia -= custo;
+    }
+
     public void ganhar_escudo(int escudo) {
         this.escudo += escudo;
     }
@@ -43,7 +47,7 @@ public class Heroi {
     }
 
     public void set_energia(int energia) {
-        this.energia = 30;
+        this.energia = 10;
     }
 
     public int get_energia() {

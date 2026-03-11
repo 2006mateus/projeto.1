@@ -1,10 +1,28 @@
 public class CartaDano {
-    String nome;
-    int custo;
-    int dano;
+    private String nome;
+    private int custo;
+    private int dano;
+
+    public CartaDano(String nome, int custo, int dano){
+        this.nome = nome;
+        this.custo = custo;
+        this.dano = dano;
+    }
+
+    public String getnome(){
+        return nome;
+    }
+
+    public int getDano(){
+        return dano;
+    }
+
+    public int getcusto(){
+        return custo;
+    }
 
     public void usar(Inimigo inimigo, Heroi heroi){
-        inimigo.vida -= dano;
-        heroi.energia -= custo;
+        inimigo.receber_dano_inimigo(dano);;
+        heroi.perderEnergia(custo);
     }
 }
