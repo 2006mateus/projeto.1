@@ -1,4 +1,4 @@
-public class Heroi {
+public class Heroi extends Entidade{
     private String nome;
     private int vida;
     private int escudo;

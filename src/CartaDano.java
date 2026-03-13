@@ -1,11 +1,7 @@
-public class CartaDano {
-    private String nome;
-    private int custo;
+public class CartaDano extends Cartas{
     private int dano;
 
-    public CartaDano(String nome, int custo, int dano){
-        this.nome = nome;
-        this.custo = custo;
+    public CartaDano(int dano){
         this.dano = dano;
     }
 
