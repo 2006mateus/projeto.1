@@ -2,22 +2,21 @@ public abstract class Entidade {
     private String nome;
     private int vida;
     private int escudo;
-    private int dano;
 
-    public Entidade(String nome, int vida, int escudo, int dano){
+    public Entidade(String nome, int vida, int escudo){
         this.nome = nome;
         this.vida = vida;
         this.escudo = escudo;
-        this.dano = dano;
     }
 
-    public void receber_dano(Entidade entidade) {
-        if (dano >= (entidade.vida + entidade.escudo)){
-            entidade.vida = 0;
-        } else if (entidade.escudo >= dano){ 
-            entidade.escudo -= dano;
+    public void receber_dano(int dano) {
+        if (dano >= (this.vida + this.escudo)){
+            this.vida = 0;
+        } else if (this.escudo >= dano){ 
+            this.escudo -= dano;
         } else {
-            entidade.vida = entidade.vida + entidade.escudo - dano;
+            this.vida = this.vida + this.escudo - dano;
+            this.escudo = 0;
         }
     }
 
@@ -31,5 +30,17 @@ public abstract class Entidade {
         } else {
             return true;
         }
+    }
+
+    public int getVida(){
+        return vida;
+    }
+
+    public int getEscudo(){
+        return escudo;
+    }
+
+    public String getNome(){
+        return nome;
     }
 }

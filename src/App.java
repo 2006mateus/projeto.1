@@ -10,13 +10,11 @@ public class App {
         System.out.println("Digite o nome do heroi");
         String nome = leitor.nextLine();
 
-        Heroi heroi = new Heroi(nome, 40);
+        Entidade explorador = new Heroi(nome, 100, 0, 10);
+        Entidade rato = new Inimigo("rato bebe", 30, 0, 15);
 
-        Inimigo rato = new Inimigo("rato", 20, 0, true, 5);
-
-        CartaEscudo protecao = new CartaEscudo("bandagem", 5, 5);
-
-        CartaDano arma = new CartaDano("tiro", 3, 5);
+        Cartas bastao = new CartaDano("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar...", 3, 10);
+        Cartas luva = new CartaEscudo("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 20, 5);
 
         while(jogando == true) {
             heroi.set_escudo(0);
@@ -62,8 +60,8 @@ public class App {
                     break;
                 }
             }
-            if (rato.getvida(rato) != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
-                heroi.receber_dano(rato.getataque(rato), heroi);
+            if (rato.getVida() != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
+                heroi.receber_dano(rato.getAtaque());
             } else if (comandos == 3) {
                 rato.atacar(heroi);
             }
