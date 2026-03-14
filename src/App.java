@@ -10,20 +10,20 @@ public class App {
         System.out.println("Digite o nome do heroi");
         String nome = leitor.nextLine();
 
-        Entidade explorador = new Heroi(nome, 100, 0, 10);
-        Entidade rato = new Inimigo("rato bebe", 30, 0, 15);
+        Heroi explorador = new Heroi(nome, 100, 0, 10);
+        Inimigo rato = new Inimigo("rato bebe", 30, 0, 15);
 
-        Cartas bastao = new CartaDano("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
-        Cartas luva = new CartaEscudo("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 20, 5);
+        CartaDano bastao = new CartaDano("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
+        CartaEscudo luva = new CartaEscudo("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 20, 5);
 
         while(jogando == true) {
             explorador.setEscudo(0);
             explorador.setEnergia(10);
 
             while (comandos != 0 && explorador.getEnergia() != 0) {
-                System.out.println(explorador.getNome() + " (" + explorador.getVida() + "/40)" + "   (" + explorador.getEscudo() + "/5)");
+                System.out.println(explorador.getNome() + " (" + explorador.getVida() + "/100)" + "   (" + explorador.getEscudo() + "/20)");
                 System.out.println("vs");
-                System.out.println(rato.getNome() + " (" + rato.getVida() + "/20)");
+                System.out.println(rato.getNome() + " (" + rato.getVida() + "/30)");
 
                 System.out.println();
 
@@ -39,7 +39,7 @@ public class App {
                     if (explorador.getEnergia() < bastao.getCusto()) {
                         System.out.println("Nao ha energia suficiente");
                     } else {
-                        rato.receber_dano_inimigo(bastao.getDano());
+                        rato.receber_dano(bastao.getDano());
                         bastao.usar(explorador);
                         if (rato.getVida() == 0) {
                             rato.setVida(20); /*só vem outro rato pq ainda nao tem outros inimigos*/

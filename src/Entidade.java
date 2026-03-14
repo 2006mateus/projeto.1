@@ -20,7 +20,7 @@ public abstract class Entidade {
         }
     }
 
-    public void ganhar_escudo(int escudo) {
+    public void ganharEscudo(int escudo) {
         this.escudo += escudo;
     }
 
