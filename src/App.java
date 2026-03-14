@@ -40,7 +40,7 @@ public class App {
                         System.out.println("Nao ha energia suficiente");
                     } else {
                         rato.receber_dano_inimigo(bastao.getDano());
-                        bastao.usar(rato, heroi);
+                        bastao.usar(explorador);
                         if (rato.getVida() == 0) {
                             rato.setVida(20); /*só vem outro rato pq ainda nao tem outros inimigos*/
                             System.out.println(rato.getNome() + " foi aniquilado!");
@@ -54,24 +54,24 @@ public class App {
                         bastao.usar(explorador);
                     }
                 } else if (comandos == 3) {
-                    if (heroi.esta_vivo() == false) {
+                    if (explorador.estaVivo() == false) {
                         jogando = false;
                     }
                     break;
                 }
             }
             if (rato.getVida() != 20) { /*evita receber ataque de um rato recem-chegado por conta da falta de energia*/
-                heroi.receber_dano(rato.getAtaque());
+                explorador.receber_dano(rato.getAtaque());
             } else if (comandos == 3) {
-                rato.atacar(heroi);
+                rato.atacar(explorador);
             }
-            if (heroi.esta_vivo() == false) {
+            if (explorador.estaVivo() == false) {
                 comandos = 0;
                 jogando = false;
-                System.out.println(heroi.get_nome() + " foi derrotado por " + rato.getnome() + " e foi para casa!");
+                System.out.println(explorador.getNome() + " foi derrotado por " + rato.getNome() + " e foi para casa!");
                 break;
             } else if (comandos == 0) {
-                System.out.println(heroi.get_nome() + " saiu do jogo!");
+                System.out.println(explorador.getNome() + " saiu do jogo!");
                 break;
             }
         }

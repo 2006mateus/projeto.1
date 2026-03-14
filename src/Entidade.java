@@ -24,7 +24,7 @@ public abstract class Entidade {
         this.escudo += escudo;
     }
 
-    public Boolean esta_vivo() {
+    public Boolean estaVivo() {
         if (this.vida <= 0){
             return false;
         } else {
