@@ -21,7 +21,7 @@ public abstract class Cartas {
         return custo;
     }
 
-    public void usar(Heroi heroi){
+    public void usar(Entidade heroi){
         heroi.perderEnergia(custo);
     }
 }

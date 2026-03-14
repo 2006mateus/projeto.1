@@ -13,45 +13,45 @@ public class App {
         Entidade explorador = new Heroi(nome, 100, 0, 10);
         Entidade rato = new Inimigo("rato bebe", 30, 0, 15);
 
-        Cartas bastao = new CartaDano("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar...", 3, 10);
+        Cartas bastao = new CartaDano("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
         Cartas luva = new CartaEscudo("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 20, 5);
 
         while(jogando == true) {
-            heroi.set_escudo(0);
-            heroi.set_energia(10);
+            explorador.setEscudo(0);
+            explorador.setEnergia(10);
 
-            while (comandos != 0 && heroi.get_energia() != 0) {
-                System.out.println(heroi.get_nome() + " (" + heroi.get_vida() + "/40)" + "   (" + heroi.get_escudo() + "/5)");
+            while (comandos != 0 && explorador.getEnergia() != 0) {
+                System.out.println(explorador.getNome() + " (" + explorador.getVida() + "/40)" + "   (" + explorador.getEscudo() + "/5)");
                 System.out.println("vs");
-                System.out.println(rato.getnome() + " (" + rato.getvida(rato) + "/20)");
+                System.out.println(rato.getNome() + " (" + rato.getVida() + "/20)");
 
                 System.out.println();
 
-                System.out.println(heroi.get_energia() + "/" + "10 de Energia disponivel");
-                System.out.println("1 - Usar " + arma.getnome());
-                System.out.println("2 - Usar " + protecao.getnome());
+                System.out.println(explorador.getEnergia() + "/" + "10 de Energia disponivel");
+                System.out.println("1 - Usar " + bastao.getNome());
+                System.out.println("2 - Usar " + luva.getNome());
                 System.out.println("3 - Encerrar turno");
                 System.out.println("0 - Sair do jogo");
 
                 comandos = leitor.nextInt();
 
                 if (comandos == 1) {
-                    if (heroi.get_energia() < arma.getcusto()) {
+                    if (explorador.getEnergia() < bastao.getCusto()) {
                         System.out.println("Nao ha energia suficiente");
                     } else {
-                        rato.receber_dano_inimigo(arma.getDano());
-                        arma.usar(rato, heroi);
-                        if (rato.getvida(rato) == 0) {
+                        rato.receber_dano_inimigo(bastao.getDano());
+                        bastao.usar(rato, heroi);
+                        if (rato.getVida() == 0) {
                             rato.setVida(20); /*só vem outro rato pq ainda nao tem outros inimigos*/
-                            System.out.println(rato.getnome() + " foi aniquilado!");
+                            System.out.println(rato.getNome() + " foi aniquilado!");
                         }
                     }
                 } else if (comandos == 2) {
-                    if (heroi.get_energia() < protecao.getcusto()) {
+                    if (explorador.getEnergia() < luva.getCusto()) {
                         System.out.println("Nao ha energia suficiente");
                     } else {
-                        heroi.ganhar_escudo(protecao.getescudo());
-                        protecao.usar(heroi);
+                        explorador.ganharEscudo(luva.getEscudo());
+                        bastao.usar(explorador);
                     }
                 } else if (comandos == 3) {
                     if (heroi.esta_vivo() == false) {

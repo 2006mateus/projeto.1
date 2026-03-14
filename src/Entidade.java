@@ -43,4 +43,12 @@ public abstract class Entidade {
     public String getNome(){
         return nome;
     }
+
+    public void setVida(int vida){
+        this.vida = vida;
+    }
+
+    public void setEscudo(int escudo){
+        this.escudo = escudo;
+    }
 }
