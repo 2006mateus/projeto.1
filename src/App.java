@@ -33,23 +33,18 @@ public class App {
                 System.out.println();
 
                 System.out.println(explorador.getEnergy() + "/" + "10 de Energia disponivel");
-                System.out.println("1 - Usar " + bastao.getName());
-                System.out.println("2 - Usar " + luva.getName());
-                System.out.println("3 - Encerrar turno");
+                System.out.println("1 - Abrir deck de cartas");
+                System.out.println("2 - Comprar carta no baralho.");
+                System.out.println("4 - Encerrar turno");
                 System.out.println("0 - Sair do jogo");
 
                 commands = scanner.nextInt();
 
                 if (commands == 1) {
-                    if (explorador.getEnergy() < bastao.getCost()) {
-                        System.out.println("Nao ha energia suficiente");
+                    if (deckSystem.emptyDeck()) {
+                        System.out.println("Nao ha cartas no seu inventario!");
                     } else {
-                        rato.takeDamage(bastao.getDamage());
-                        bastao.use(explorador);
-                        if (rato.getHealth() == 0) {
-                            rato.setHealth(30); /*só vem outro rato pq ainda nao tem outros inimigos*/
-                            System.out.println(rato.getName() + " foi aniquilado!");
-                        }
+                        
                     }
                 } else if (commands == 2) {
                     if (explorador.getEnergy() < luva.getCost()) {
