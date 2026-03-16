@@ -25,4 +25,12 @@ public class CardsManager{
     public void addCard(Cards card){
         deck.add(card);
     }
+
+    public boolean emptyDeck(){
+        if (deck.isEmpty()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
