@@ -16,6 +16,10 @@ public class App {
         DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
         ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 20, 5);
 
+        CardsManager deckSystem = new CardsManager();
+        deckSystem.addCard(luva);
+        deckSystem.addCard(bastao);
+
 
         while(playing == true) {
             explorador.setShield(0);
