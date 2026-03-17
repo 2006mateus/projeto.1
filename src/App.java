@@ -97,15 +97,16 @@ public class App {
             if (rato.isAlive() == false) {
                 break;
             }
+            if (commands == 0) {
+                System.out.println(explorador.getName() + " saiu do jogo!");
+                break;
+            }
             rato.atack(explorador);
             System.out.println(rato.getName() + " atacou causando " + rato.getDamage() + " de dano!");
             if (explorador.isAlive() == false) {
                 commands = 0;
                 playing = false;
                 System.out.println(explorador.getName() + " foi derrotado por " + rato.getName() + " e foi para casa!");
-                break;
-            } else if (commands == 0) {
-                System.out.println(explorador.getName() + " saiu do jogo!");
                 break;
             }
             deckSystem.clearHand();
