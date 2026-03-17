@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class CardsManager{
+    private ArrayList<Cards> hand = new ArrayList<>();
     private ArrayList<Cards> deck = new ArrayList<>();
     private ArrayDeque<Cards> discardPile = new ArrayDeque<>();
 
@@ -9,7 +10,11 @@ public class CardsManager{
             recycleDeck();
         }
         Cards newCard = deck.remove(deck.size() - 1);
-        System.out.println("Carta" + newCard.getName() + "comprada!");
+        hand.add(newCard);
+        System.out.println("Carta " + newCard.getName() + " comprada!");
+        if (deck.isEmpty()) {
+            recycleDeck();
+        }
     }
 
     public void discardCard(Cards card){
@@ -26,11 +31,46 @@ public class CardsManager{
         deck.add(card);
     }
 
+    public int getQuantityDeck() {
+        return deck.size();
+    }
+
+    public int getQuantityHand() {
+        return hand.size();
+    }
+
     public boolean emptyDeck(){
-        if (deck.isEmpty()){
-            return true;
-        } else {
-            return false;
+        return hand.isEmpty();
+    }
+
+    public void printHand() {
+        int i = 1;
+        for (Cards card : hand) {
+            System.out.println(i + " - " + card.name);
+            System.out.println("Descrição: " + card.description);
+            System.out.println("Custo: " + card.cost);
+            i += 1;
         }
+    }
+
+    public void useCard(int index, Hero hero, Enemy enemy) { /* não consegui pensar em um jeito melhor de especificar quem deve sofrer o efeito da carta */
+        Cards usedCard = hand.get(index);
+        if (hero.getEnergy() < usedCard.cost) {
+            System.out.println("Não há energia suficiente para utilizar esta carta!");
+            return;
+        }
+        if (usedCard instanceof DamageCard) {
+            usedCard.use(enemy);
+        } else {
+            usedCard.use(hero);
+        }
+        hero.loseEnergy(usedCard.cost);
+        hand.remove(index);
+        discardPile.add(usedCard);
+    }
+
+    public void clearHand() {
+        discardPile.addAll(hand);
+        hand.clear();
     }
 }

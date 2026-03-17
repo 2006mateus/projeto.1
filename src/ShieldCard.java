@@ -9,4 +9,9 @@ public class ShieldCard extends Cards{
     public int getShield(){
         return shield;
     }
+
+    public void use(Entity hero) {
+        hero.gainShield(shield);
+        System.out.println(hero.name + " ganhou " + shield + " de escudo!");
+    }
 }
