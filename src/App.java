@@ -32,6 +32,27 @@ public class App {
         while(playing == true) {
             explorador.setShield(0);
             explorador.setEnergy(10);
+            System.out.println("====================");
+            System.out.println(rato.getName() + " irá atacar causando " + rato.getDamage() + " de dano");
+            System.out.println("Selecione 1 se deseja comprar cartas no baralho ou 2 se não. " + deckSystem.getQuantityDeck() + " cartas restantes");
+
+            commands = scanner.nextInt();
+
+            if (commands == 1) {
+                deckSystem.printDeck();
+                while (true) {
+                    System.out.println("Selecione o número das cartas a serem compradas ou 0 para sair do baralho");
+                    int num = scanner.nextInt();
+                    if (deckSystem.getQuantityHand() == MAX_CARTAS) {
+                        System.out.println("Máximo de cartas na mão atingida!");
+                        break;
+                    }
+                    if (num == 0) {
+                        break;
+                    }
+                    deckSystem.buyCard(num);
+                }
+            }
 
             while (commands != 0 && explorador.getEnergy() != 0) {
                 System.out.println(explorador.getName() + " (" + explorador.getHealth() + "/100)" + "   (" + explorador.getShield() + "/20)");
@@ -42,8 +63,7 @@ public class App {
 
                 System.out.println(explorador.getEnergy() + "/" + "10 de Energia disponivel");
                 System.out.println("1 - Abrir deck de cartas. " + deckSystem.getQuantityHand() + " cartas no deck");
-                System.out.println("2 - Comprar carta no baralho. " + deckSystem.getQuantityDeck() + " cartas restantes");
-                System.out.println("3 - Encerrar turno");
+                System.out.println("2 - Encerrar turno");
                 System.out.println("0 - Sair do jogo");
 
                 commands = scanner.nextInt();
@@ -68,16 +88,6 @@ public class App {
                         }
                     }
                 } else if (commands == 2) {
-                    System.out.println("Selecione o número de cartas a serem compradas");
-                    int num = scanner.nextInt();
-                    for (int i = 0; i < num; i += 1) {
-                        if (deckSystem.getQuantityHand() == MAX_CARTAS) {
-                            System.out.println("Máximo de cartas na mão atingida!");
-                            break;
-                        }
-                        deckSystem.buyCard();
-                    }
-                } else if (commands == 3) {
                     if (explorador.isAlive() == false) {
                         playing = false;
                     }
@@ -86,9 +96,9 @@ public class App {
             }
             if (rato.isAlive() == false) {
                 break;
-            } else if (commands == 3 || explorador.getEnergy() == 0) {
-                rato.atack(explorador);
             }
+            rato.atack(explorador);
+            System.out.println(rato.getName() + " atacou causando " + rato.getDamage() + " de dano!");
             if (explorador.isAlive() == false) {
                 commands = 0;
                 playing = false;

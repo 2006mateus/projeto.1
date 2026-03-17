@@ -5,12 +5,13 @@ public class CardsManager{
     private ArrayList<Cards> deck = new ArrayList<>();
     private ArrayDeque<Cards> discardPile = new ArrayDeque<>();
 
-    public void buyCard(){
+    public void buyCard(int num){
         if (deck.isEmpty()){
             recycleDeck();
         }
-        Cards newCard = deck.remove(deck.size() - 1);
+        Cards newCard = deck.remove(num - 1);
         hand.add(newCard);
+        printDeck();
         System.out.println("Carta " + newCard.getName() + " comprada!");
         if (deck.isEmpty()) {
             recycleDeck();
@@ -46,6 +47,16 @@ public class CardsManager{
     public void printHand() {
         int i = 1;
         for (Cards card : hand) {
+            System.out.println(i + " - " + card.name);
+            System.out.println("Descrição: " + card.description);
+            System.out.println("Custo: " + card.cost);
+            i += 1;
+        }
+    }
+
+    public void printDeck() {
+        int i = 1;
+        for (Cards card : deck) {
             System.out.println(i + " - " + card.name);
             System.out.println("Descrição: " + card.description);
             System.out.println("Custo: " + card.cost);
