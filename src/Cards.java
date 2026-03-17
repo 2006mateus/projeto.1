@@ -21,7 +21,5 @@ public abstract class Cards {
         return cost;
     }
 
-    public void use(Hero hero){
-        hero.loseEnergy(cost);
-    }
+    public abstract void use(Entity entity);
 }

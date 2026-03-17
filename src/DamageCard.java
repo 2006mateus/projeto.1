@@ -9,4 +9,9 @@ public class DamageCard extends Cards{
     public int getDamage(){
         return damage;
     }
+
+    public void use(Entity enemy) {
+        enemy.takeDamage(damage);
+        System.out.println(enemy.name + " recebeu " + damage + " de dano!");
+    }
 }
