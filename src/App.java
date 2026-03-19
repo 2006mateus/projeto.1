@@ -11,8 +11,8 @@ public class App {
         System.out.println("Digite o nome do heroi");
         String name = scanner.nextLine();
 
-        Hero explorador = new Hero(name, 100, 0, 10);
-        Enemy rato = new Enemy("rato bebe", 70, 0, 15);
+        Hero explorador = new Hero(name, 100, 0, 10, 20);
+        Enemy rato = new Enemy("rato bebe", 70, 0, 15, 0);
 
         DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
         DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12);

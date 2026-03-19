@@ -2,11 +2,15 @@ public abstract class Entity {
     protected String name;
     protected int health;
     protected int shield;
+    protected final int MAX_HEALTH;
+    protected final int MAX_SHIELD;
 
-    public Entity(String name, int health, int shield) {
+    public Entity(String name, int health, int shield, int maxShield) {
         this.name = name;
         this.health = health;
         this.shield = shield;
+        this.MAX_HEALTH = health;
+        this.MAX_SHIELD = maxShield;
     }
 
     public void takeDamage(int damage) {
@@ -21,7 +25,11 @@ public abstract class Entity {
     }
 
     public void gainShield(int shield) {
-        this.shield += shield;
+        if (this.shield + shield > this.MAX_SHIELD) {
+            this.shield = MAX_SHIELD;
+        } else {
+            this.shield += shield;
+        }
     }
 
     public Boolean isAlive() {
