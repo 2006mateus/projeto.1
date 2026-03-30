@@ -1,16 +1,20 @@
+import java.util.ArrayList;
+
 public abstract class Entity {
     protected String name;
     protected int health;
     protected int shield;
     protected final int MAX_HEALTH;
     protected final int MAX_SHIELD;
+    protected ArrayList<Effects> effectsList = new ArrayList<>();
 
-    public Entity(String name, int health, int shield, int maxShield) {
+    public Entity(String name, int health, int shield, int maxShield, int MAX_HEALTH, ArrayList<Effects> effects) {
         this.name = name;
         this.health = health;
         this.shield = shield;
         this.MAX_HEALTH = health;
         this.MAX_SHIELD = maxShield;
+        this.effectsList = effects;
     }
 
     public void takeDamage(int damage) {
@@ -29,6 +33,21 @@ public abstract class Entity {
             this.shield = MAX_SHIELD;
         } else {
             this.shield += shield;
+        }
+    }
+
+    public void applyEffect(Effects effect, Entity npc){
+        boolean exist = false;
+        for (int i = 0; i < npc.effectsList.size(); i++){
+            if (npc.effectsList.get(i).name.equals(effect.name)){
+                npc.effectsList.get(i).stacks += effect.stacks;
+                exist = true;
+                break;
+            }
+        }
+
+        if (!exist){
+            npc.effectsList.add(effect);
         }
     }
 
