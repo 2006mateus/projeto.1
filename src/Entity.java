@@ -8,13 +8,12 @@ public abstract class Entity {
     protected final int MAX_SHIELD;
     protected ArrayList<Effects> effectsList = new ArrayList<>();
 
-    public Entity(String name, int health, int shield, int maxShield, int MAX_HEALTH, ArrayList<Effects> effects) {
+    public Entity(String name, int health, int shield, int maxShield) {
         this.name = name;
         this.health = health;
         this.shield = shield;
         this.MAX_HEALTH = health;
         this.MAX_SHIELD = maxShield;
-        this.effectsList = effects;
     }
 
     public void takeDamage(int damage) {

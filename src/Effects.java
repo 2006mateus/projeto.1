@@ -1,4 +1,4 @@
-public abstract class Effects {
+public abstract class Effects extends Subscriber {
     protected String name;
     protected Entity owner;
     protected int stacks;
@@ -9,9 +9,7 @@ public abstract class Effects {
         this.stacks = stacks;
     }
 
-    public String getName(){
+    public String getString(){
         return name + " (Acumulos: " + stacks + ")";
     }
-
-    public abstract void getNotify();
 }

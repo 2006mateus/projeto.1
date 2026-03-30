@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-
 public class Hero extends Entity {
     private int energy;
 
-    public Hero(String name, int health, int shield, int energy, int maxShield, int maxHealth, ArrayList<Effects> effects) {
-        super(name, health, shield, maxShield, maxHealth, effects);
+    public Hero(String name, int health, int shield, int energy, int maxShield) {
+        super(name, health, shield, maxShield);
         this.energy = energy;
     }
 
