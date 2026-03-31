@@ -1,5 +1,5 @@
 public class Venom extends Effects{
-    private int damage = 10;
+    private int damage;
 
     public Venom(String name, Entity owner, int stacks, int damage){
         super(name, owner, stacks);
@@ -29,5 +29,7 @@ public class Venom extends Effects{
                 owner.shield = 0;
             }
         }
+
+        System.out.println("O efeito de veneno vai dar um dano de " + this.damage + " extra!");
     }
 }

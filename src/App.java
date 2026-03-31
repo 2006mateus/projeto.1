@@ -16,8 +16,12 @@ public class App {
 
         DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
         DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12);
+        DamageCard Dardo = new DamageCard("Dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 6, 2);
+        DamageCard oculos = new DamageCard("oculos velhos", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 5, 0);
         ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 10, 3);
         ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 15, 4);
+
+        Publisher publisher = new Publisher();
 
         CardsManager deckSystem = new CardsManager();
         for (int i = 0; i < 2; i += 1) {
@@ -25,9 +29,10 @@ public class App {
             deckSystem.addCard(faca);
             deckSystem.addCard(bastao);
             deckSystem.addCard(capacete);
+            deckSystem.addCard(Dardo);
+            deckSystem.addCard(oculos);
         }
         deckSystem.recycleDeck(); /* embaralhar antes de começar */
-
 
         while(playing == true) {
             explorador.setShield(0);
@@ -81,13 +86,15 @@ public class App {
                             commands = -1;
                             continue;
                         }
-                        deckSystem.useCard(commands - 1, explorador, rato);
+                        deckSystem.useCard(commands - 1, explorador, rato, publisher);
+
                         if (rato.isAlive() == false) {
                             System.out.println(explorador.getName() + " aniquilou " + rato.getName() + " e consquistou a vitória!");
                             break;
                         }
                     }
                 } else if (commands == 2) {
+                    publisher.notifySubscribers();
                     if (explorador.isAlive() == false) {
                         playing = false;
                     }
@@ -101,7 +108,7 @@ public class App {
                 System.out.println(explorador.getName() + " saiu do jogo!");
                 break;
             }
-            rato.atack(explorador);
+            rato.act(explorador);
             System.out.println(rato.getName() + " atacou causando " + rato.getDamage() + " de dano!");
             if (explorador.isAlive() == false) {
                 commands = 0;
