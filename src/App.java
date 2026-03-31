@@ -11,7 +11,7 @@ public class App {
         System.out.println("Digite o nome do heroi");
         String name = scanner.nextLine();
 
-        Hero explorador = new Hero(name, 100, 0, 10, 20);
+        Hero explorador = new Hero(name, 1000, 0, 10, 20);
         Enemy rato = new Enemy("rato bebe", 70, 0, 15, 0);
 
         DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
@@ -94,10 +94,6 @@ public class App {
                         }
                     }
                 } else if (commands == 2) {
-                    publisher.notifySubscribers();
-                    if (explorador.isAlive() == false) {
-                        playing = false;
-                    }
                     break;
                 }
             }
@@ -108,8 +104,14 @@ public class App {
                 System.out.println(explorador.getName() + " saiu do jogo!");
                 break;
             }
-            rato.act(explorador);
+
+            System.out.println("--- Turno do Inimigo ---");
             System.out.println(rato.getName() + " atacou causando " + rato.getDamage() + " de dano!");
+
+            rato.atack(explorador, publisher); 
+            
+            publisher.notifySubscribers();
+
             if (explorador.isAlive() == false) {
                 commands = 0;
                 playing = false;
