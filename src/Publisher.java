@@ -13,7 +13,7 @@ public class Publisher {
 
     public void notifySubscribers(){
         for (Effects effect : subscribers){
-            effect.getNotify();
+             effect.getNotify();
         }
     }
 }
