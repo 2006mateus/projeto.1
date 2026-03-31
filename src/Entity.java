@@ -77,4 +77,13 @@ public abstract class Entity {
     public void setShield(int shield) {
         this.shield = shield;
     }
+
+    public int getStrengthBonus() {
+    for (Effects e : this.effectsList) {
+        if (e instanceof Strength) {
+            return ((Strength) e).getStrengthening();
+        }
+    }
+    return 0;
+    }
 }

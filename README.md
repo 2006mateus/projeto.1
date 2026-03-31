@@ -29,6 +29,12 @@ Cards.java	    Classe abstrata que define o modelo base para qualquer carta (nom
 
     Sistema de Dano: O dano é mitigado primeiro pelo Escudo. Se o dano exceder o escudo, a Vida é subtraída.
 
+## Efeitos
+
+    Veneno (Venom): Um efeito negativo (debuff) aplicado a inimigos. Causa dano direto à vida no final do turno do alvo, ignorando o escudo. O número de acúmulos diminui em 1 após cada ativação.
+
+    Força (Strength): Um efeito positivo (buff) aplicado ao Herói. Não causa dano por si só, mas é consultado por cartas de ataque para somar bônus de dano a cada golpe desferido.
+
 ## Como compilar e rodar
 
 Compilando:

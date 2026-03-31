@@ -21,5 +21,5 @@ public abstract class Cards {
         return cost;
     }
 
-    public abstract void use(Entity entity);
+    public abstract void use(Entity user, Entity entity);
 }
