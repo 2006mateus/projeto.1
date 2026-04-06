@@ -1,6 +1,0 @@
-{
-    "java.project.sourcePaths": [
-        "app/src/main",
-        "gradle/app/src/main/java"
-    ]
-}
