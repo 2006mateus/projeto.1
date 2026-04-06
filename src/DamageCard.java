@@ -14,6 +14,6 @@ public class DamageCard extends Cards{
         int bonus = user.getStrengthBonus();
         int finalDamage = this.damage + bonus;
         enemy.takeDamage(finalDamage);
-        System.out.println(enemy.name + " recebeu " + damage + " de dano!");
+        System.out.println(enemy.name + " recebeu " + finalDamage + " de dano!");
     }
 }
