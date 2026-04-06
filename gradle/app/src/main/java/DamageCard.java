@@ -1,3 +1,5 @@
+
+
 public class DamageCard extends Cards{
     private int damage;
 
