@@ -1,3 +1,4 @@
+
 public class ShieldCard extends Cards{
     private int shield;
 

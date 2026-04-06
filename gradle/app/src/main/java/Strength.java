@@ -1,3 +1,4 @@
+
 public class Strength extends Effects{
     private int strengthing;
 
