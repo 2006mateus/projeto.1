@@ -1,3 +1,4 @@
+package jogo;
 public abstract class Effects extends Subscriber {
     protected String name;
     protected Entity owner;

@@ -1,3 +1,4 @@
+package jogo;
 public abstract class Cards {
     protected String name;
     protected String description;

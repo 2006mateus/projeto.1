@@ -1,3 +1,4 @@
+package jogo;
 import java.util.Random;
 
 public class Enemy extends Entity {

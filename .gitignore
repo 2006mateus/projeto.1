@@ -1,11 +1,5 @@
-*.class
-*.jar
+# Ignore Gradle project-specific cache directory
+.gradle
 
-.idea/
-*.iml
-
-target/
-build/
-.gradle/
-
-.DS_Store
+# Ignore Gradle build output directory
+build

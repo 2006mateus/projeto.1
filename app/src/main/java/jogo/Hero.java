@@ -1,3 +1,4 @@
+package jogo;
 public class Hero extends Entity {
     private int energy;
 
