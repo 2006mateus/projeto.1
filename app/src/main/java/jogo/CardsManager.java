@@ -1,13 +1,25 @@
 package jogo;
+
 import java.util.*;
 
-public class CardsManager{
+/**
+ * Gerencia as coleções de cartas durante a partida.
+ * Controla o baralho (deck), a mão atual do jogador (hand) e a pilha de descarte (discardPile),
+ * além de lidar com as ações de comprar, descartar, reciclar e utilizar cartas.
+ */
+public class CardsManager {
     private ArrayList<Cards> hand = new ArrayList<>();
     private ArrayList<Cards> deck = new ArrayList<>();
     private ArrayDeque<Cards> discardPile = new ArrayDeque<>();
 
-    public void buyCard(int num){
-        if (deck.isEmpty()){
+    /**
+     * Compra uma carta específica do baralho com base no seu índice e a adiciona à mão.
+     * Caso o baralho fique vazio antes ou depois da compra, a pilha de descarte é reciclada.
+     *
+     * @param num A posição (baseada em 1) da carta no baralho que será comprada.
+     */
+    public void buyCard(int num) {
+        if (deck.isEmpty()) {
             recycleDeck();
         }
         Cards newCard = deck.remove(num - 1);
@@ -19,32 +31,64 @@ public class CardsManager{
         }
     }
 
-    public void discardCard(Cards card){
+    /**
+     * Adiciona uma carta diretamente à pilha de descarte.
+     *
+     * @param card A carta a ser descartada.
+     */
+    public void discardCard(Cards card) {
         discardPile.push(card);
     }
 
-    public void recycleDeck(){
+    /**
+     * Recicla o baralho transferindo todas as cartas da pilha de descarte de volta 
+     * para o baralho e embaralhando-as em seguida.
+     */
+    public void recycleDeck() {
         deck.addAll(discardPile);
         discardPile.clear();
         Collections.shuffle(deck);
     }
 
-    public void addCard(Cards card){
+    /**
+     * Adiciona uma nova carta ao final do baralho.
+     *
+     * @param card A carta a ser adicionada.
+     */
+    public void addCard(Cards card) {
         deck.add(card);
     }
 
+    /**
+     * Obtém a quantidade de cartas atualmente no baralho.
+     *
+     * @return O número de cartas no baralho.
+     */
     public int getQuantityDeck() {
         return deck.size();
     }
 
+    /**
+     * Obtém a quantidade de cartas atualmente na mão do jogador.
+     *
+     * @return O número de cartas na mão.
+     */
     public int getQuantityHand() {
         return hand.size();
     }
 
-    public boolean emptyDeck(){
+    /**
+     * Verifica se a estrutura de dados está vazia.
+     * * @return true se a estrutura estiver vazia, false caso contrário.
+     */
+    public boolean emptyDeck() {
         return hand.isEmpty();
     }
 
+    /**
+     * Imprime no console as cartas atualmente na mão do jogador,
+     * exibindo seu índice, nome, descrição e custo.
+     */
     public void printHand() {
         int i = 1;
         for (Cards card : hand) {
@@ -55,6 +99,10 @@ public class CardsManager{
         }
     }
 
+    /**
+     * Imprime no console as cartas atualmente no baralho,
+     * exibindo seu índice, nome, descrição e custo.
+     */
     public void printDeck() {
         int i = 1;
         for (Cards card : deck) {
@@ -65,7 +113,19 @@ public class CardsManager{
         }
     }
 
-    public void useCard(int index, Hero hero, Enemy enemy, Publisher publisher) { /* não consegui pensar em um jeito melhor de especificar quem deve sofrer o efeito da carta */
+    /**
+     * Utiliza uma carta da mão do jogador, aplicando seu efeito no jogo.
+     * Verifica se o herói possui energia suficiente antes de executar a ação.
+     * Lida com efeitos específicos de cartas especiais (ex: "Dardo", "oculos velhos") 
+     * utilizando o padrão Publisher-Subscriber para os efeitos de status.
+     * Após o uso, o custo de energia é deduzido e a carta vai para o descarte.
+     *
+     * @param index     O índice (baseado em 0) da carta na mão a ser utilizada.
+     * @param hero      O herói que está utilizando a carta e consumindo energia.
+     * @param enemy     O inimigo alvo dos efeitos de ataque ou debuff.
+     * @param publisher O gerenciador de eventos (Publisher) para registrar efeitos contínuos.
+     */
+    public void useCard(int index, Hero hero, Enemy enemy, Publisher publisher) {
         Cards usedCard = hand.get(index);
         if (hero.getEnergy() < usedCard.cost) {
             System.out.println("Não há energia suficiente para utilizar esta carta!");
@@ -103,6 +163,10 @@ public class CardsManager{
         discardPile.add(usedCard);
     }
 
+    /**
+     * Descarta todas as cartas atualmente na mão, enviando-as para a pilha de descarte,
+     * e limpa a mão do jogador (geralmente usado no fim do turno).
+     */
     public void clearHand() {
         discardPile.addAll(hand);
         hand.clear();

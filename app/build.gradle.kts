@@ -6,7 +6,7 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    // Apply the application plugin to add support for building a CLI application in Java.7
     application
 }
 
@@ -44,4 +44,11 @@ tasks.named<Test>("test") {
 
 tasks.named<JavaExec>("run") {
     standardInput = System.`in`
+}
+
+tasks.named<Javadoc>("javadoc") {
+    destinationDir = file("$buildDir/docs/javadoc")
+    
+    // Opcional: Para incluir atributos e métodos privados
+    (options as StandardJavadocDocletOptions).memberLevel = JavadocMemberLevel.PRIVATE
 }
