@@ -7,7 +7,6 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
     application
 }
 
@@ -24,12 +23,6 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
-}
-
-javadoc {
-    destinationDir = file("${buildDir}/docs/javadoc")
-
-    options.memberLevel = JavadocMemberLevel.PRIVATE
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
