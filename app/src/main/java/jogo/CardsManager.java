@@ -116,8 +116,6 @@ public class CardsManager {
     /**
      * Utiliza uma carta da mão do jogador, aplicando seu efeito no jogo.
      * Verifica se o herói possui energia suficiente antes de executar a ação.
-     * Lida com efeitos específicos de cartas especiais (ex: "Dardo", "oculos velhos") 
-     * utilizando o padrão Publisher-Subscriber para os efeitos de status.
      * Após o uso, o custo de energia é deduzido e a carta vai para o descarte.
      *
      * @param index     O índice (baseado em 0) da carta na mão a ser utilizada.

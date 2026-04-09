@@ -64,9 +64,9 @@ public abstract class Entity {
         }
     }
     /**
-     * Adiciona pontos de vida à entidade, respeitando o limite definido por MAX_HEALTH
+     * Adiciona pontos de vida à entidade, respeitando o limite definido por MAX_HEALTH.
      * 
-     * @param healing A quantidade de vida a ser adicionada
+     * @param healing A quantidade de vida a ser adicionada.
      */
 
     public void gainHealth(int healing) {
@@ -77,6 +77,11 @@ public abstract class Entity {
         }
     }
 
+    /**
+     * Confere se o o acréscimo da cura na vida ultrapassa o limite definido por MAX_HEALTH.
+     *
+     * @return O valor real de vida adicionada.
+     */
     public int getFinalHealing(int healing) {
         if (this.health + healing > this.MAX_HEALTH) {
             return (this.health + healing) - this.MAX_HEALTH;
