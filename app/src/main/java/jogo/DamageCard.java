@@ -11,7 +11,7 @@ public class DamageCard extends Cards{
         return damage;
     }
 
-    public void use(Entity user, Entity enemy) {
+    public void use(Entity user, Entity enemy, Publisher publisher) {
         int bonus = user.getStrengthBonus();
         int finalDamage = this.damage + bonus;
         enemy.takeDamage(finalDamage);

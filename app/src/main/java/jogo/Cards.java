@@ -4,10 +4,10 @@ public abstract class Cards {
     protected String description;
     protected int cost;
 
-    public Cards(String nome, String descricao, int custo){
-        this.name = nome;
-        this.description = descricao;
-        this.cost = custo;
+    public Cards(String name, String description, int cost){
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
     }
 
     public String getName(){
@@ -22,5 +22,5 @@ public abstract class Cards {
         return cost;
     }
 
-    public abstract void use(Entity user, Entity entity);
+    public abstract void use(Entity user, Entity entity, Publisher publisher);
 }

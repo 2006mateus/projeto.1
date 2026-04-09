@@ -36,6 +36,14 @@ public abstract class Entity {
         }
     }
 
+    public void gainHealth(int health) {
+        if (this.health + health > this.MAX_HEALTH) {
+            this.health = MAX_HEALTH;
+        } else {
+            this.health += health;
+        }
+    }
+
     public void applyEffect(Effects effect, Entity npc){
         boolean exist = false;
         for (int i = 0; i < npc.effectsList.size(); i++){

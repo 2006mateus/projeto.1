@@ -73,7 +73,7 @@ public class CardsManager{
         }
         if (usedCard instanceof DamageCard) {
 
-            usedCard.use(hero, enemy);
+            usedCard.use(hero, enemy, publisher);
 
             if (usedCard.getName().equalsIgnoreCase("Dardo")) {
                 System.out.println("O dardo perfurou o inimigo e aplicou Veneno!");
@@ -96,7 +96,7 @@ public class CardsManager{
             }
 
         } else {
-            usedCard.use(hero, enemy);
+            usedCard.use(hero, enemy, publisher);
         }
         hero.loseEnergy(usedCard.cost);
         hand.remove(index);
