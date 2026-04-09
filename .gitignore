@@ -3,3 +3,10 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore compiled bin folder (onde o VS Code/Eclipse jogam os .class)
+bin/
+app/bin/
+
+# Ignore all .class files
+*.class
