@@ -1,5 +1,6 @@
 package jogo;
 
+import java.io.Console;
 import java.util.Scanner;
 
 /**
@@ -14,7 +15,7 @@ public class App {
 
     /**
      * Ponto de entrada do aplicativo. Contém o loop principal de combate.
-     * * @param args Argumentos de linha de comando (não utilizados).
+     * * @param args Argumentos de linha de comando 
      */
     public static void main(String[] args) {
         int commands = -1;
@@ -71,6 +72,8 @@ public class App {
          * O jogo continua enquanto 'playing' for verdadeiro e o herói estiver vivo.
          */
         while (playing) {
+            ConsoleUI.clearScreen();
+
             explorador.setShield(0);
             explorador.setEnergy(10);
             System.out.println("====================");
@@ -98,10 +101,10 @@ public class App {
             while (commands != 0 && explorador.getEnergy() != 0) {
                 exibirStatus(explorador, rato);
 
-                System.out.println(explorador.getEnergy() + "/10 de Energia disponivel");
-                System.out.println("1 - Abrir mão. " + deckSystem.getQuantityHand() + " cartas");
-                System.out.println("2 - Encerrar turno");
-                System.out.println("0 - Sair do jogo");
+                System.out.println(ConsoleUI.YELLOW + explorador.getEnergy() + "/10 de Energia disponivel" + ConsoleUI.RESET);
+                System.out.println(ConsoleUI.GREEN + "1 - Abrir mão. " + deckSystem.getQuantityHand() + " cartas" + ConsoleUI.RESET);
+                System.out.println(ConsoleUI.GREEN + "2 - Encerrar turno" + ConsoleUI.RESET);
+                System.out.println(ConsoleUI.GREEN + "0 - Sair do jogo" + ConsoleUI.RESET);
 
                 commands = scanner.nextInt();
 
@@ -137,13 +140,15 @@ public class App {
 
     /**
      * Exibe no console os pontos de vida e escudo dos combatentes.
-     * * @param h O herói do jogador.
-     * @param e O inimigo.
      */
     private static void exibirStatus(Hero h, Enemy e) {
-        System.out.println(h.getName() + " (" + h.getHealth() + "/100) (" + h.getShield() + "/20)");
-        System.out.println("vs");
-        System.out.println(e.getName() + " (" + e.getHealth() + "/70)");
+        // Limpa a tela toda vez que os status forem mostrados para não poluir o terminal
+        ConsoleUI.clearScreen();
+        
+        ConsoleUI.printAsciiArt("rato.txt");
+
+        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀             " + ConsoleUI.RED + e.getName() + " (" + e.getHealth() + "/70)" + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                      " + ConsoleUI.BLUE + h.getName() + " (" + h.getHealth() + "/100) Escudo: (" + h.getShield() + "/20)" + ConsoleUI.RESET);
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     }
 
     /**
@@ -166,9 +171,16 @@ public class App {
      * Executa as ações do inimigo e notifica efeitos de status.
      */
     private static void executarTurnoInimigo(Enemy e, Hero h, Publisher p) {
-        System.out.println("--- Turno do Inimigo ---");
-        System.out.println(e.getName() + " atacou!");
+        ConsoleUI.clearScreen();
+        ConsoleUI.printAsciiArt("rato.txt"); // Imprime o desenho do rato gigante
+        
+        System.out.println(ConsoleUI.RED + "--- Turno do Inimigo ---" + ConsoleUI.RESET);
+        System.out.println(e.getName() + " atacou ferozmente!");
+        
         e.atack(h, p);
         p.notifySubscribers();
+        
+        // Pausa por 2 segundos (4000 milissegundos) para o jogador conseguir ler o dano
+        ConsoleUI.pause(4000); 
     }
 }

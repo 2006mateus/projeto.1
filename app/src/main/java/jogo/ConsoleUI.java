@@ -1,3 +1,5 @@
+package jogo;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -21,7 +23,7 @@ public class ConsoleUI {
 
     /**
      * Pausa a execução para dar tempo do jogador ler
-     * @param milliseconds Tempo em milissegundos (ex: 1000 = 1 segundo)
+     * @param milliseconds Tempo em milissegundos
      */
     public static void pause(int milliseconds) {
         try {
@@ -37,7 +39,6 @@ public class ConsoleUI {
      */
     public static void printAsciiArt(String fileName) {
         try {
-            // O Gradle usa a pasta resources para arquivos que não são código
             String content = Files.readString(Path.of("src/main/resources/" + fileName));
             System.out.println(content);
         } catch (Exception e) {
