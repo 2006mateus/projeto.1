@@ -141,7 +141,7 @@ public class App {
      * @param e O inimigo.
      */
     private static void exibirStatus(Hero h, Enemy e) {
-        System.out.println(h.getName() + " (" + h.getHealth() + "/1000) (" + h.getShield() + "/20)");
+        System.out.println(h.getName() + " (" + h.getHealth() + "/100) (" + h.getShield() + "/20)");
         System.out.println("vs");
         System.out.println(e.getName() + " (" + e.getHealth() + "/70)");
     }
