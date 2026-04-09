@@ -10,6 +10,7 @@ import java.util.*;
 public class CardsManager {
     private ArrayList<Cards> hand = new ArrayList<>();
     private ArrayList<Cards> deck = new ArrayList<>();
+    private ArrayList<Cards> purchasable = new ArrayList<>();
     private ArrayDeque<Cards> discardPile = new ArrayDeque<>();
 
     /**
@@ -19,13 +20,19 @@ public class CardsManager {
      * @param num A posição (baseada em 1) da carta no baralho que será comprada.
      */
     public void buyCard(int num) {
-        if (deck.isEmpty()) {
-            recycleDeck();
+        if (num <= 0 || num > purchasable.size()) {
+            System.out.println("Seleção inválida!");
+            return;
         }
         Cards newCard = deck.remove(num - 1);
+        purchasable.remove(num - 1);
         hand.add(newCard);
-        printDeck();
         System.out.println("Carta " + newCard.getName() + " comprada!");
+        if (!purchasable.isEmpty()) {
+            printPurchasable();
+        } else {
+            System.out.println("Todas as cartas da rodada foram processadas!");
+        }
         if (deck.isEmpty()) {
             recycleDeck();
         }
@@ -100,16 +107,14 @@ public class CardsManager {
     }
 
     /**
-     * Imprime no console as cartas atualmente no baralho,
+     * Imprime no console quatro das cartas atualmente no baralho,
      * exibindo seu índice, nome, descrição e custo.
      */
-    public void printDeck() {
-        int i = 1;
-        for (Cards card : deck) {
-            System.out.println(i + " - " + card.name);
-            System.out.println("Descrição: " + card.description);
-            System.out.println("Custo: " + card.cost);
-            i += 1;
+    public void printPurchasable() {
+        for (int i = 0; i < purchasable.size(); i += 1) {
+            System.out.println((i + 1) + " - " + purchasable.get(i).name);
+            System.out.println("Descrição: " + purchasable.get(i).description);
+            System.out.println("Custo: " + purchasable.get(i).cost);
         }
     }
 
@@ -142,5 +147,31 @@ public class CardsManager {
     public void clearHand() {
         discardPile.addAll(hand);
         hand.clear();
+    }
+
+    /**
+     * Pega quatro cartas do deck e as coloca para compra.
+     */
+    public void moveToPurchasable() {
+        for (int i = 0; i < 4; i += 1) {
+            purchasable.add(deck.get(i));
+        }
+    }
+
+    /**
+     * @return A quantidade de cartas compráveis no momento.
+     */
+    public int getPurchasableQuantity() {
+        return purchasable.size();
+    }
+
+    /**
+     * Limpa a lista de cartas compráveis e
+     * Embaralha o deck novamente para a próxima rodada
+     */
+    public void clearPurchasableAndShuffle() {
+        purchasable.clear(); 
+        Collections.shuffle(deck); 
+        System.out.println("O deck foi re-embaralhado com as cartas restantes!");
     }
 }

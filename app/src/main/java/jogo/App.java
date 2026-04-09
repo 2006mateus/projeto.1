@@ -59,10 +59,10 @@ public class App {
             deckSystem.addCard(oculos);
             deckSystem.addCard(pistola);
             deckSystem.addCard(colete);
+            deckSystem.addCard(bandagem);
+            deckSystem.addCard(medkit);
+            deckSystem.addCard(injecao);
         }
-        deckSystem.addCard(bandagem);
-        deckSystem.addCard(medkit);
-        deckSystem.addCard(injecao);
         
         // Embaralhar antes de começar
         deckSystem.recycleDeck();
@@ -84,8 +84,13 @@ public class App {
 
             // Lógica de compra de cartas
             if (commands == 1) {
-                deckSystem.printDeck();
+                deckSystem.moveToPurchasable();
+                deckSystem.printPurchasable();
                 while (true) {
+                    if (deckSystem.getPurchasableQuantity() == 0) {
+                        System.out.println("Não há mais cartas disponíveis para compra nesta rodada.");
+                        break; 
+                    }
                     System.out.println("Selecione o número da carta para comprar ou 0 para sair");
                     int num = scanner.nextInt();
                     if (deckSystem.getQuantityHand() == MAX_CARTAS) {
@@ -95,6 +100,7 @@ public class App {
                     if (num == 0) break;
                     deckSystem.buyCard(num);
                 }
+                deckSystem.clearPurchasableAndShuffle();
             }
 
             // Sub-loop do turno do jogador (uso de energia)
