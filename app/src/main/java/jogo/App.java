@@ -1,6 +1,5 @@
 package jogo;
 
-import java.io.Console;
 import java.util.Scanner;
 
 /**
@@ -77,7 +76,6 @@ public class App {
             explorador.setShield(0);
             explorador.setEnergy(10);
             System.out.println("====================");
-            System.out.println(rato.getName() + " irá atacar causando " + rato.getDamage() + " de dano");
             System.out.println("Selecione 1 para comprar cartas ou 2 para não. " + deckSystem.getQuantityDeck() + " restantes");
 
             commands = scanner.nextInt();
