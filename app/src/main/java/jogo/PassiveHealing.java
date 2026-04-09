@@ -27,6 +27,6 @@ public class PassiveHealing extends Effects{
             owner.health += healing;
         }
 
-        System.out.println("Voce recebeu" + this.healing + " de cura passiva!");
+        System.out.println("Voce recebeu " + this.healing + " de cura passiva");
     }
 }

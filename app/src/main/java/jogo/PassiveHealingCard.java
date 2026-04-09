@@ -12,9 +12,8 @@ public class PassiveHealingCard extends Cards {
         this.stacks = stacks;
     }
 
-    // ainda falta colocar esse use no cards manager, que vai ser igual pra todas as cartas, mas pra isso tem que mudar os outros efeitos tambem
-    public void use(Entity user, Entity enemy,Publisher publisher) {
-        System.out.println("a injecao foi aplicada com sucesso!");
+    public void use(Entity user, Entity enemy, Publisher publisher) {
+        System.out.println(this.name + " foi utilizada com sucesso!");
         user.gainHealth(healing);
         PassiveHealing passiveHealing = new PassiveHealing(effectName, user, stacks, healing);
         user.applyEffect(passiveHealing, user);

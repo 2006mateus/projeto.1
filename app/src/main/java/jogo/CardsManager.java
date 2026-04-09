@@ -131,33 +131,7 @@ public class CardsManager {
             System.out.println("Não há energia suficiente para utilizar esta carta!");
             return;
         }
-        if (usedCard instanceof DamageCard) {
-
-            usedCard.use(hero, enemy, publisher);
-
-            if (usedCard.getName().equalsIgnoreCase("Dardo")) {
-                System.out.println("O dardo perfurou o inimigo e aplicou Veneno!");
-                
-                Venom veneno = new Venom("Veneno do Dardo", enemy, 2, 5);
-                
-                enemy.applyEffect(veneno, enemy);
-                
-                publisher.subscribe(veneno); 
-            }
-
-            if (usedCard.getName().equalsIgnoreCase("oculos velhos")) {
-                System.out.println("Os oculos velhos melhoram sua visao e aumentou seu foco!");
-                
-                Strength foco = new Strength("Foco", hero, 2, 5);
-                
-                hero.applyEffect(foco, hero);
-                
-                publisher.subscribe(foco); 
-            }
-
-        } else {
-            usedCard.use(hero, enemy, publisher);
-        }
+        usedCard.use(hero, enemy, publisher);
         hero.loseEnergy(usedCard.cost);
         hand.remove(index);
         discardPile.add(usedCard);

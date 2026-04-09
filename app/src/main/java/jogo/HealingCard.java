@@ -14,6 +14,7 @@ public class HealingCard extends Cards {
 
     public void use(Entity user, Entity enemy, Publisher publisher) {
         user.gainHealth(healing);
-        System.out.println(user.name + " ganhou " + healing + " de vida!");
+        int finalHealing = user.getFinalHealing(healing);
+        System.out.println(user.name + " ganhou " + finalHealing + " de vida!");
     }
 }

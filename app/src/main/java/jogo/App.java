@@ -35,14 +35,14 @@ public class App {
         // Criação do catálogo de cartas disponíveis
         DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
         DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12);
-        DamageCard Dardo = new DamageCard("Dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 6, 2);
-        DamageCard oculos = new DamageCard("oculos velhos", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 5, 0);
+        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 5, 2, 5, 3);
+        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 1, 5, 1);
         DamageCard pistola = new DamageCard("pistola", "uma pistola praticamente emperrada, contém apenas uma bala", 5, 15);
         ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 3, 10);
         ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 4, 15);
         ShieldCard colete = new ShieldCard("colete", "um colete a prova de balas remendado", 5, 20);
         HealingCard bandagem = new HealingCard("bandagem", "Uma bandagem relativamente suja", 2, 12);
-        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 4, 30);
+        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30);
         PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3);
 
         Publisher publisher = new Publisher();
