@@ -29,6 +29,7 @@ public class CardsManager {
         hand.add(newCard);
         System.out.println("Carta " + newCard.getName() + " comprada!");
         if (!purchasable.isEmpty()) {
+            ConsoleUI.clearScreen();
             printPurchasable();
         } else {
             System.out.println("Todas as cartas da rodada foram processadas!");
