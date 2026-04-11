@@ -112,6 +112,10 @@ public abstract class Entity {
         }
     }
 
+    public void removeEffect(Effects effect, Entity npc){
+        npc.effectsList.remove(effect);
+    }
+
     /**
      * Verifica se a entidade ainda possui pontos de vida.
      *

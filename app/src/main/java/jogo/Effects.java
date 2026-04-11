@@ -39,4 +39,9 @@ public abstract class Effects extends Subscriber {
     public String getString() {
         return name + " (Acumulos: " + stacks + ")";
     }
+
+    /** @return a quantidade de turnos restantes do efeito. */
+    public int getStacks() {
+        return this.stacks;
+    }
 }

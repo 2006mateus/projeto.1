@@ -38,6 +38,7 @@ public class Venom extends Effects {
     public void getNotify() {
 
         if (this.stacks <= 0) {
+            owner.removeEffect(this, owner);
             return;
         }
 

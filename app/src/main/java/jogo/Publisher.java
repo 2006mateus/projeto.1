@@ -31,6 +31,10 @@ public class Publisher {
         subscribers.remove(efeito);
     }
 
+    public void clearPublisher() {
+        subscribers.clear();
+    }
+
     /**
      * Notifica todos os assinantes registrados, disparando o método de atualização 
      * de cada efeito ({@code getNotify}).
@@ -41,5 +45,6 @@ public class Publisher {
         for (Effects effect : subscribers) {
              effect.getNotify();
         }
+        subscribers.removeIf(effect -> effect.getStacks() <= 0);
     }
 }

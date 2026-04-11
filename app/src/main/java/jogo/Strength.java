@@ -41,6 +41,7 @@ public class Strength extends Effects {
     @Override
     public void getNotify() {
         if (this.stacks <= 0) {
+            owner.removeEffect(this, owner);
             return;
         }
         
