@@ -1,191 +1,83 @@
 package jogo;
 
 import java.util.Scanner;
+import javax.swing.tree.DefaultMutableTreeNode;
 
-/**
- * Classe principal que gerencia o fluxo de execução do jogo.
- * <p>
- * Responsável por inicializar os personagens (herói e inimigo), gerenciar o sistema
- * de cartas através do {@link CardsManager}, processar os turnos de combate e
- * capturar as entradas do usuário via console.
- * </p>
- */
 public class App {
+    
+    // Corrigido: adicionado o static
+    public static void main(String[] args){
 
-    /**
-     * Ponto de entrada do aplicativo. Contém o loop principal de combate.
-     * * @param args Argumentos de linha de comando 
-     */
-    public static void main(String[] args) {
-        int commands = -1;
-        boolean playing = true;
-        
-        /** Limite máximo de cartas permitidas na mão do jogador. */
-        final int MAX_CARTAS = 4;
+        String nome;
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Digite o nome do heroi");
-        String name = scanner.nextLine();
-
-        // Inicialização das entidades de combate
-        Hero explorador = new Hero(name, 100, 0, 10, 20);
-        Enemy rato = new Enemy("rato bebe", 70, 0, 15, 0);
-
-        // Criação do catálogo de cartas disponíveis
-        DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
-        DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12);
-        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 5, 2, 5, 3);
-        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 1, 5, 1);
-        DamageCard pistola = new DamageCard("pistola", "uma pistola praticamente emperrada, contém apenas uma bala", 5, 15);
-        ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 3, 10);
-        ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 4, 15);
-        ShieldCard colete = new ShieldCard("colete", "um colete a prova de balas remendado", 5, 20);
-        HealingCard bandagem = new HealingCard("bandagem", "Uma bandagem relativamente suja", 2, 12);
-        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30);
-        PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3);
-
-        Publisher publisher = new Publisher();
+        Scanner reader = new Scanner(System.in);
         CardsManager deckSystem = new CardsManager();
+        Publisher publisher = new Publisher();
 
-        // Populando o baralho inicial
-        for (int i = 0; i < 2; i += 1) {
-            deckSystem.addCard(luva);
-            deckSystem.addCard(faca);
-            deckSystem.addCard(bastao);
-            deckSystem.addCard(capacete);
-            deckSystem.addCard(Dardo);
-            deckSystem.addCard(oculos);
-            deckSystem.addCard(pistola);
-            deckSystem.addCard(colete);
-            deckSystem.addCard(bandagem);
-            deckSystem.addCard(medkit);
-            deckSystem.addCard(injecao);
-        }
+        System.out.println("Digite o nome de seu heroi:");
+        nome = reader.next();
         
-        // Embaralhar antes de começar
-        deckSystem.recycleDeck();
+        Hero explorador = new Hero(nome, 100, 0, 10, 20);
+        
+        Enemy rato = new Enemy("Rato de academia", 5, 0, 20, 0);
+        Enemy urso = new Enemy("Urso", 1, 0, 30, 0);
+        Enemy cabra = new Enemy("Cabra", 7, 0, 10, 0);
+        Enemy kanye = new Enemy("GOAT", 1, 0, 30, 0);
+        Enemy cobra = new Enemy("Cobra", 5, 0, 30, 0);
+        Enemy macaco = new Enemy("Macaco", 1, 0, 20, 0);
+        Enemy caraMal = new Enemy("Luquinhas", 2, 0, 40, 0);
 
-        /**
-         * Loop principal do combate.
-         * O jogo continua enquanto 'playing' for verdadeiro e o herói estiver vivo.
-         */
-        while (playing) {
-            ConsoleUI.clearScreen();
+        Map gameMap = new Map();
+        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, caraMal);
 
-            explorador.setShield(0);
-            explorador.setEnergy(10);
-            System.out.println("====================");
-            System.out.println(rato.getName() + " irá atacar causando " + rato.getDamage() + " de dano");
-            System.out.println("Selecione 1 para comprar cartas ou 2 para não. " + deckSystem.getQuantityDeck() + " restantes");
+        DefaultMutableTreeNode salaAtual = gameMap.entrada;
+        
+        boolean result = true;
 
-            commands = scanner.nextInt();
+        while (result){
 
-            // Lógica de compra de cartas
-            if (commands == 1) {
-                deckSystem.moveToPurchasable();
-                deckSystem.printPurchasable();
-                while (true) {
-                    if (deckSystem.getPurchasableQuantity() == 0) {
-                        System.out.println("Não há mais cartas disponíveis para compra nesta rodada.");
-                        break; 
-                    }
-                    System.out.println("Selecione o número da carta para comprar ou 0 para sair");
-                    int num = scanner.nextInt();
-                    if (deckSystem.getQuantityHand() == MAX_CARTAS) {
-                        System.out.println("Máximo de cartas na mão atingida!");
-                        break;
-                    }
-                    if (num == 0) break;
-                    deckSystem.buyCard(num);
-                }
-                deckSystem.clearPurchasableAndShuffle();
-            }
+            Sala salaAtualDados = (Sala) salaAtual.getUserObject();
 
-            // Sub-loop do turno do jogador (uso de energia)
-            while (commands != 0 && explorador.getEnergy() != 0) {
-                exibirStatus(explorador, rato);
+            System.out.println("\n-----------------------------------------");
+            System.out.println("Você está em: " + salaAtualDados.getNome());
+            
+            // Verifica se tem monstro na sala e chama a sua classe Battle!
+            if (salaAtualDados.getInimigo() != null) {
 
-                System.out.println(ConsoleUI.YELLOW + explorador.getEnergy() + "/10 de Energia disponivel" + ConsoleUI.RESET);
-                System.out.println(ConsoleUI.GREEN + "1 - Abrir mão. " + deckSystem.getQuantityHand() + " cartas" + ConsoleUI.RESET);
-                System.out.println(ConsoleUI.GREEN + "2 - Encerrar turno" + ConsoleUI.RESET);
-                System.out.println(ConsoleUI.GREEN + "0 - Sair do jogo" + ConsoleUI.RESET);
-
-                commands = scanner.nextInt();
-
-                if (commands == 1) {
-                    processarUsoDeCarta(deckSystem, explorador, rato, publisher, scanner);
-                    if (!rato.isAlive()) {
-                        System.out.println(explorador.getName() + " conquistou a vitória!");
-                        break;
-                    }
-                } else if (commands == 2) {
+                result = Battle.startBattle(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
+                
+                // Se a batalha retornou false (derrota), encerra o jogo
+                if (!result) {
                     break;
                 }
             }
 
-            if (!rato.isAlive()) break;
-            if (commands == 0) {
-                System.out.println(explorador.getName() + " saiu do jogo!");
+            // Verifica se chegou na última sala do chefe (uma folha da árvore)
+            if (salaAtual.isLeaf()) {
+                System.out.println("\nVOCÊ ZEROU O JOGO! Parabéns!");
                 break;
             }
 
-            // Turno do Inimigo
-            executarTurnoInimigo(rato, explorador, publisher);
+            System.out.println("\nEscolha seu caminho:");
+            int numeroDePortas = salaAtual.getChildCount();
 
-            if (!explorador.isAlive()) {
-                playing = false;
-                System.out.println(explorador.getName() + " foi derrotado!");
-                break;
+            // Mostra os caminhos possíveis dinamicamente
+            for (int i = 0; i < numeroDePortas; i++) {
+                DefaultMutableTreeNode porta = (DefaultMutableTreeNode) salaAtual.getChildAt(i);
+                Sala salaDaPorta = (Sala) porta.getUserObject();
+                System.out.println("Digite " + (i + 1) + " para ir para " + salaDaPorta.getNome());
             }
-            deckSystem.clearHand();
-        }
-        scanner.close();
-    }
 
-    /**
-     * Exibe no console os pontos de vida e escudo dos combatentes.
-     */
-    private static void exibirStatus(Hero h, Enemy e) {
-        // Limpa a tela toda vez que os status forem mostrados para não poluir o terminal
-        ConsoleUI.clearScreen();
-        
-        ConsoleUI.printAsciiArt("rato.txt");
+            int choice = reader.nextInt();
 
-        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀             " + ConsoleUI.RED + e.getName() + " (" + e.getHealth() + "/70)" + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                      " + ConsoleUI.BLUE + h.getName() + " (" + h.getHealth() + "/100) Escudo: (" + h.getShield() + "/20)" + ConsoleUI.RESET);
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-    }
-
-    /**
-     * Gerencia a interface de escolha e uso de cartas da mão do jogador.
-     */
-    private static void processarUsoDeCarta(CardsManager ds, Hero h, Enemy e, Publisher p, Scanner s) {
-        if (ds.emptyDeck()) {
-            System.out.println("Mão vazia!");
-        } else {
-            ds.printHand();
-            System.out.println("Selecione o número da carta ou 0 para fechar");
-            int choice = s.nextInt();
-            if (choice != 0) {
-                ds.useCard(choice - 1, h, e, p);
+            if (choice >= 1 && choice <= numeroDePortas) {
+                // Avança para o nó que o jogador escolheu
+                salaAtual = (DefaultMutableTreeNode) salaAtual.getChildAt(choice - 1);
+            } else {
+                System.out.println("Opção inválida! Escolha um dos caminhos.");
             }
         }
-    }
 
-    /**
-     * Executa as ações do inimigo e notifica efeitos de status.
-     */
-    private static void executarTurnoInimigo(Enemy e, Hero h, Publisher p) {
-        ConsoleUI.clearScreen();
-        ConsoleUI.printAsciiArt("rato.txt"); // Imprime o desenho do rato gigante
-        
-        System.out.println(ConsoleUI.RED + "--- Turno do Inimigo ---" + ConsoleUI.RESET);
-        System.out.println(e.getName() + " atacou ferozmente!");
-        
-        e.atack(h, p);
-        p.notifySubscribers();
-        
-        // Pausa por 2 segundos (4000 milissegundos) para o jogador conseguir ler o dano
-        ConsoleUI.pause(4000); 
+        reader.close();
     }
 }
