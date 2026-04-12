@@ -154,7 +154,8 @@ public class CardsManager {
      * Pega quatro cartas do deck e as coloca para compra.
      */
     public void moveToPurchasable() {
-        for (int i = 0; i < 4; i += 1) {
+        int limit = Math.min(4, deck.size());
+        for (int i = 0; i < limit; i += 1) {
             purchasable.add(deck.get(i));
         }
     }

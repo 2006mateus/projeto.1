@@ -29,6 +29,9 @@ public class Hero extends Entity {
      * @param custo O valor a ser subtraído da energia atual.
      */
     public void loseEnergy(int custo) {
+        if (this.energy - custo < 0) {
+            return;
+        }
         energy -= custo;
     }
 
