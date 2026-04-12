@@ -24,9 +24,9 @@ public class Map {
         DefaultMutableTreeNode ninhoCobra = new DefaultMutableTreeNode(new Sala("Ninho da Cobra", cobra, "cobra.txt"));
         DefaultMutableTreeNode arvoreMacaco = new DefaultMutableTreeNode(new Sala("Árvore do Macaco", macaco, "macaco.txt"));
 
-        DefaultMutableTreeNode elefanteEsquerda = new DefaultMutableTreeNode(new Sala("Covil do Cara Mal", elefante, "elefante.txt"));
-        DefaultMutableTreeNode elefanteMeio = new DefaultMutableTreeNode(new Sala("Covil do Cara Mal", elefante, "elefante.txt"));
-        DefaultMutableTreeNode elfanteDireita = new DefaultMutableTreeNode(new Sala("Covil do Cara Mal", elefante, "elefante.txt"));
+        DefaultMutableTreeNode elefanteEsquerda = new DefaultMutableTreeNode(new Sala("Cachoeira do elefante", elefante, "elefante.txt"));
+        DefaultMutableTreeNode elefanteMeio = new DefaultMutableTreeNode(new Sala("Cachoeira do elefante", elefante, "elefante.txt"));
+        DefaultMutableTreeNode elfanteDireita = new DefaultMutableTreeNode(new Sala("Cachoeira do elefante", elefante, "elefante.txt"));
 
         // 2. Conectando as rotas da Árvore
         entrada.add(salaEsquerda);
