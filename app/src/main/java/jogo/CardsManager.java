@@ -12,7 +12,6 @@ import java.util.*;
  * <li><b>Hand:</b> As cartas que o herói possui atualmente para jogar.</li>
  * <li><b>Discard Pile:</b> A pilha de descarte para onde as cartas vão após o uso ou fim de turno.</li>
  * </ul>
- * </p>
  */
 public class CardsManager {
     
