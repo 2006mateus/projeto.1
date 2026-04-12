@@ -19,13 +19,18 @@ public class App {
         
         Hero explorador = new Hero(nome, 100, 0, 10, 20);
         
-        Enemy rato = new Enemy("Rato de academia", 5, 0, 20, 0);
-        Enemy urso = new Enemy("Urso", 1, 0, 30, 0);
-        Enemy cabra = new Enemy("Cabra", 7, 0, 10, 0);
-        Enemy kanye = new Enemy("GOAT", 1, 0, 30, 0);
-        Enemy cobra = new Enemy("Cobra", 5, 0, 30, 0);
-        Enemy macaco = new Enemy("Macaco", 1, 0, 20, 0);
-        Enemy caraMal = new Enemy("Luquinhas", 2, 0, 40, 0);
+        // primeiros inimigos
+        Enemy rato = new Enemy("Rato de academia", 20, 0, 15, 0);
+        Enemy cabra = new Enemy("Cabra", 25, 0, 10, 0);
+        Enemy cobra = new Enemy("Cobra", 30, 0, 20, 0);
+
+        // inimigos intermediários
+        Enemy urso = new Enemy("Urso", 50, 0, 25, 0);
+        Enemy kanye = new Enemy("GOAT", 55, 0, 25, 0);
+        Enemy macaco = new Enemy("Macaco", 45, 0, 20, 0);
+
+        // boss
+        Enemy elefante = new Enemy("Elefante", 120, 0, 35, 0);
 
         /** Limite máximo de cartas permitidas na mão do jogador. */
 
@@ -59,7 +64,7 @@ public class App {
         }
 
         Map gameMap = new Map();
-        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, caraMal);
+        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, elefante);
 
         DefaultMutableTreeNode salaAtual = gameMap.entrada;
         

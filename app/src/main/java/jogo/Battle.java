@@ -20,6 +20,7 @@ public class Battle {
             System.out.println(ConsoleUI.GREEN + "Derrota! Tente denovo outra vez..." + ConsoleUI.RESET);
         }
 
+        ds.clearHand();
         explorador.effectsList.clear();
         inimigo.effectsList.clear();
         p.clearPublisher();
