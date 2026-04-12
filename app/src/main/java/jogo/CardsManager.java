@@ -3,54 +3,75 @@ package jogo;
 import java.util.*;
 
 /**
- * Gerencia as coleções de cartas durante a partida.
- * Controla o baralho (deck), a mão atual do jogador (hand) e a pilha de descarte (discardPile),
- * além de lidar com as ações de comprar, descartar, reciclar e utilizar cartas.
+ * Gerenciador do ciclo de vida das cartas durante a partida.
+ * <p>
+ * Esta classe controla as quatro coleções principais de cartas:
+ * <ul>
+ * <li><b>Deck:</b> O baralho principal de onde as cartas são sorteadas.</li>
+ * <li><b>Purchasable:</b> A seleção de cartas disponíveis para o jogador escolher no turno.</li>
+ * <li><b>Hand:</b> As cartas que o herói possui atualmente para jogar.</li>
+ * <li><b>Discard Pile:</b> A pilha de descarte para onde as cartas vão após o uso ou fim de turno.</li>
+ * </ul>
+ * </p>
  */
 public class CardsManager {
+    
+    /** Lista de cartas atualmente na mão do jogador. */
     private ArrayList<Cards> hand = new ArrayList<>();
+    
+    /** Baralho principal de cartas. */
     private ArrayList<Cards> deck = new ArrayList<>();
+    
+    /** Subconjunto de cartas retiradas do deck que estão disponíveis para compra/escolha. */
     private ArrayList<Cards> purchasable = new ArrayList<>();
+    
+    /** Pilha de descarte (LIFO) que armazena cartas utilizadas ou descartadas. */
     private ArrayDeque<Cards> discardPile = new ArrayDeque<>();
 
     /**
-     * Compra uma carta específica do baralho com base no seu índice e a adiciona à mão.
-     * Caso o baralho fique vazio antes ou depois da compra, a pilha de descarte é reciclada.
+     * Transfere uma carta da seleção de compra para a mão do jogador.
+     * <p>
+     * Se o baralho principal ficar vazio após a operação, a pilha de descarte 
+     * é automaticamente reciclada e embaralhada.
+     * </p>
      *
-     * @param num A posição (baseada em 1) da carta no baralho que será comprada.
+     * @param num O índice (iniciado em 1) da carta na lista de compráveis.
      */
     public void buyCard(int num) {
         if (num <= 0 || num > purchasable.size()) {
             System.out.println("Seleção inválida!");
             return;
         }
-        Cards newCard = deck.remove(num - 1);
-        purchasable.remove(num - 1);
+        // Remove da lista de seleção e do deck físico
+        Cards newCard = purchasable.remove(num - 1);
+        deck.remove(newCard); 
         hand.add(newCard);
+        
         System.out.println("Carta " + newCard.getName() + " comprada!");
+        
         if (!purchasable.isEmpty()) {
             ConsoleUI.clearScreen();
             printPurchasable();
         } else {
             System.out.println("Todas as cartas da rodada foram processadas!");
         }
+        
         if (deck.isEmpty()) {
             recycleDeck();
         }
     }
 
     /**
-     * Adiciona uma carta diretamente à pilha de descarte.
+     * Adiciona manualmente uma carta à pilha de descarte.
      *
-     * @param card A carta a ser descartada.
+     * @param card A carta a ser enviada ao descarte.
      */
     public void discardCard(Cards card) {
         discardPile.push(card);
     }
 
     /**
-     * Recicla o baralho transferindo todas as cartas da pilha de descarte de volta 
-     * para o baralho e embaralhando-as em seguida.
+     * Move todas as cartas da pilha de descarte de volta para o baralho e as embaralha.
      */
     public void recycleDeck() {
         deck.addAll(discardPile);
@@ -59,91 +80,90 @@ public class CardsManager {
     }
 
     /**
-     * Adiciona uma nova carta ao final do baralho.
+     * Adiciona uma nova carta ao baralho principal.
      *
-     * @param card A carta a ser adicionada.
+     * @param card A carta a ser registrada no deck.
      */
     public void addCard(Cards card) {
         deck.add(card);
     }
 
     /**
-     * Obtém a quantidade de cartas atualmente no baralho.
+     * Retorna a quantidade total de cartas no baralho.
      *
-     * @return O número de cartas no baralho.
+     * @return O tamanho atual do {@code deck}.
      */
     public int getQuantityDeck() {
         return deck.size();
     }
 
     /**
-     * Obtém a quantidade de cartas atualmente na mão do jogador.
+     * Retorna a quantidade de cartas que o jogador está segurando.
      *
-     * @return O número de cartas na mão.
+     * @return O tamanho atual da {@code hand}.
      */
     public int getQuantityHand() {
         return hand.size();
     }
 
     /**
-     * Verifica se a estrutura de dados está vazia.
-     * * @return true se a estrutura estiver vazia, false caso contrário.
+     * Verifica se o baralho principal está sem cartas.
+     * * @return {@code true} se o deck estiver vazio, {@code false} caso contrário.
      */
     public boolean emptyDeck() {
-        return hand.isEmpty();
+        return deck.isEmpty();
     }
 
     /**
-     * Imprime no console as cartas atualmente na mão do jogador,
-     * exibindo seu índice, nome, descrição e custo.
+     * Exibe no console os detalhes de todas as cartas na mão do jogador.
      */
     public void printHand() {
         int i = 1;
         for (Cards card : hand) {
-            System.out.println(i + " - " + card.name);
-            System.out.println("Descrição: " + card.description);
-            System.out.println("Custo: " + card.cost);
+            System.out.println(i + " - " + card.getName());
+            System.out.println("Descrição: " + card.getDescription());
+            System.out.println("Custo: " + card.getCost());
             i += 1;
         }
     }
 
     /**
-     * Imprime no console quatro das cartas atualmente no baralho,
-     * exibindo seu índice, nome, descrição e custo.
+     * Exibe no console as opções de cartas disponíveis para serem movidas para a mão.
      */
     public void printPurchasable() {
         for (int i = 0; i < purchasable.size(); i += 1) {
-            System.out.println((i + 1) + " - " + purchasable.get(i).name);
-            System.out.println("Descrição: " + purchasable.get(i).description);
-            System.out.println("Custo: " + purchasable.get(i).cost);
+            System.out.println((i + 1) + " - " + purchasable.get(i).getName());
+            System.out.println("Descrição: " + purchasable.get(i).getDescription());
+            System.out.println("Custo: " + purchasable.get(i).getCost());
         }
     }
 
     /**
-     * Utiliza uma carta da mão do jogador, aplicando seu efeito no jogo.
-     * Verifica se o herói possui energia suficiente antes de executar a ação.
-     * Após o uso, o custo de energia é deduzido e a carta vai para o descarte.
+     * Executa a lógica de jogar uma carta da mão.
+     * <p>
+     * Verifica se o herói tem energia suficiente. Se sim, aplica o efeito da carta,
+     * deduz a energia do herói, remove a carta da mão e a envia para o descarte.
+     * </p>
      *
-     * @param index     O índice (baseado em 0) da carta na mão a ser utilizada.
-     * @param hero      O herói que está utilizando a carta e consumindo energia.
-     * @param enemy     O inimigo alvo dos efeitos de ataque ou debuff.
-     * @param publisher O gerenciador de eventos (Publisher) para registrar efeitos contínuos.
+     * @param index     O índice da carta na mão (0 a hand.size() - 1).
+     * @param hero      O usuário da carta.
+     * @param enemy     O alvo da carta.
+     * @param publisher O sistema de eventos para processamento de efeitos.
      */
     public void useCard(int index, Hero hero, Enemy enemy, Publisher publisher) {
         Cards usedCard = hand.get(index);
-        if (hero.getEnergy() < usedCard.cost) {
+        if (hero.getEnergy() < usedCard.getCost()) {
             System.out.println("Não há energia suficiente para utilizar esta carta!");
             return;
         }
         usedCard.use(hero, enemy, publisher);
-        hero.loseEnergy(usedCard.cost);
+        hero.loseEnergy(usedCard.getCost());
         hand.remove(index);
         discardPile.add(usedCard);
     }
 
     /**
-     * Descarta todas as cartas atualmente na mão, enviando-as para a pilha de descarte,
-     * e limpa a mão do jogador (geralmente usado no fim do turno).
+     * Limpa a mão do jogador, movendo todas as cartas presentes para a pilha de descarte.
      */
     public void clearHand() {
         discardPile.addAll(hand);
@@ -151,7 +171,7 @@ public class CardsManager {
     }
 
     /**
-     * Pega quatro cartas do deck e as coloca para compra.
+     * Seleciona até 4 cartas do topo do baralho e as disponibiliza na lista de compras.
      */
     public void moveToPurchasable() {
         int limit = Math.min(4, deck.size());
@@ -161,15 +181,16 @@ public class CardsManager {
     }
 
     /**
-     * @return A quantidade de cartas compráveis no momento.
+     * Retorna o número de cartas disponíveis para compra na rodada atual.
+     *
+     * @return Quantidade de itens em {@code purchasable}.
      */
     public int getPurchasableQuantity() {
         return purchasable.size();
     }
 
     /**
-     * Limpa a lista de cartas compráveis e
-     * Embaralha o deck novamente para a próxima rodada
+     * Limpa a seleção de cartas disponíveis e embaralha o deck principal.
      */
     public void clearPurchasableAndShuffle() {
         purchasable.clear(); 

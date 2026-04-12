@@ -3,18 +3,30 @@ package jogo;
 import java.util.Scanner;
 
 /**
- * Classe que gerencia o fluxo de execução do jogo.
+ * Motor de interface e controle de fluxo do combate.
  * <p>
- * Responsável por inicializar os personagens (herói e inimigo), gerenciar o sistema
- * de cartas através do {@link CardsManager}, processar os turnos de combate e
- * capturar as entradas do usuário via console.
+ * Esta classe gerencia a lógica de turnos, o processamento de entradas do usuário,
+ * a exibição de status visual (incluindo artes ASCII) e a interação entre 
+ * o herói, o inimigo e o sistema de cartas (CardsManager).
  * </p>
  */
 public class Interface {
 
     /**
-     * Ponto de entrada do aplicativo. Contém o loop principal de combate.
-     * * @param args Argumentos de linha de comando 
+     * Executa o loop principal de uma partida de combate.
+     * <p>
+     * O fluxo segue a seguinte ordem:
+     * 1. Reset de atributos temporários (Energia e Escudo) do Herói.
+     * 2. Fase de Compra: O jogador seleciona cartas do deck para sua mão.
+     * 3. Fase de Ação: O jogador utiliza cartas consumindo energia.
+     * 4. Fase do Inimigo: O oponente ataca e os efeitos de status (Publisher) são processados.
+     * </p>
+     * * @param explorador O objeto do herói controlado pelo jogador.
+     * @param inimigo    O inimigo atual na sala.
+     * @param scanner    Scanner para captura de comandos no console.
+     * @param deckSystem Gerenciador das listas de cartas (deck, mão, descarte).
+     * @param publisher  Sistema de eventos para processar efeitos como veneno ou força.
+     * @param fileTxt    Caminho do arquivo de texto com a arte ASCII do inimigo.
      */
     public static void run(Hero explorador, Enemy inimigo, Scanner scanner, CardsManager deckSystem, Publisher publisher, String fileTxt) {
         int commands = -1;
@@ -22,16 +34,17 @@ public class Interface {
         /** Limite máximo de cartas permitidas na mão do jogador. */
         final int MAX_CARTAS = 4;
 
-        // Embaralhar antes de começar
+        // Garante que o baralho esteja pronto antes do início
         deckSystem.recycleDeck();
 
         /**
          * Loop principal do combate.
-         * O jogo continua enquanto 'playing' for verdadeiro e o herói estiver vivo.
+         * Mantém o jogo ativo enquanto ambos os combatentes estiverem vivos e o jogador não sair.
          */
         while (playing) {
             ConsoleUI.clearScreen();
 
+            // Lógica de início de turno: Reset de escudo e energia
             explorador.setShield(0);
             explorador.setEnergy(10);
             System.out.println("====================");
@@ -45,7 +58,7 @@ public class Interface {
                 continue;
             }
 
-            // Lógica de compra de cartas
+            // Gerenciamento da Fase de Compra (Draft de cartas)
             if (commands == 1) {
                 deckSystem.moveToPurchasable();
                 deckSystem.printPurchasable();
@@ -66,7 +79,7 @@ public class Interface {
                 deckSystem.clearPurchasableAndShuffle();
             }
 
-            // Sub-loop do turno do jogador (uso de energia)
+            // Loop de ações do Jogador: Ocorre enquanto houver energia ou o jogador não encerrar turno
             while (commands != 0 && explorador.getEnergy() != 0) {
                 exibirStatus(explorador, inimigo, fileTxt);
 
@@ -93,6 +106,7 @@ public class Interface {
                 }
             }
 
+            // Verificação de saída do jogo ou vitória antes do turno do inimigo
             if (!inimigo.isAlive()) break;
             if (commands == 0) {
                 System.out.println(explorador.getName() + " saiu do jogo!");
@@ -100,7 +114,7 @@ public class Interface {
                 break;
             }
 
-            // Turno do Inimigo
+            // Execução das ações automáticas do oponente
             executarTurnoInimigo(inimigo, explorador, publisher, fileTxt);
 
             if (!explorador.isAlive()) {
@@ -108,17 +122,23 @@ public class Interface {
                 System.out.println(explorador.getName() + " foi derrotado!");
                 break;
             }
+            
+            // Limpa a mão ao fim do turno para a próxima rodada
             deckSystem.clearHand();
         }
     }
 
     /**
-     * Exibe no console os pontos de vida e escudo dos combatentes.
+     * Atualiza a tela com as informações visuais da batalha.
+     * <p>
+     * Exibe a arte ASCII do inimigo e os atributos de Vida/Escudo de ambos os lados.
+     * </p>
+     * * @param h       O herói para exibição de HP e Escudo.
+     * @param e       O inimigo para exibição de HP.
+     * @param fileTxt O nome do arquivo contendo a arte ASCII.
      */
     public static void exibirStatus(Hero h, Enemy e, String fileTxt) {
-        // Limpa a tela toda vez que os status forem mostrados para não poluir o terminal
         ConsoleUI.clearScreen();
-        
         ConsoleUI.printAsciiArt(fileTxt);
 
         System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀             " + ConsoleUI.RED + e.getName() + " (" + e.getHealth() + "/" + e.MAX_HEALTH + ")" + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                      " + ConsoleUI.BLUE + h.getName() + " (" + h.getHealth() + "/100) Escudo: (" + h.getShield() + "/20)" + ConsoleUI.RESET);
@@ -126,28 +146,42 @@ public class Interface {
     }
 
     /**
-     * Gerencia a interface de escolha e uso de cartas da mão do jogador.
+     * Intermedeia a escolha de uma carta da mão e sua execução.
+     * * @param ds      Gerenciador de cartas.
+     * @param h       O usuário da carta (Herói).
+     * @param e       O alvo da carta (Inimigo).
+     * @param p       O publicador para registro de efeitos.
+     * @param s       Scanner para leitura do índice da carta escolhida.
+     * @param fileTxt Nome do arquivo de arte (para possível atualização de tela).
      */
     public static void processarUsoDeCarta(CardsManager ds, Hero h, Enemy e, Publisher p, Scanner s, String fileTxt) {
-        if (ds.emptyDeck()) {
+        if (ds.getQuantityHand() == 0) { // Pequena correção lógica na verificação de mão vazia
             System.out.println("Mão vazia!");
             ConsoleUI.pause(1000);
         } else {
             ds.printHand();
             System.out.println("Selecione o número da carta ou 0 para fechar");
             int choice = s.nextInt();
-            if (choice != 0) {
+            if (choice != 0 && choice <= ds.getQuantityHand()) {
                 ds.useCard(choice - 1, h, e, p);
             }
         }
     }
 
     /**
-     * Executa as ações do inimigo e notifica efeitos de status.
+     * Processa a IA básica do inimigo e a resolução de efeitos de status.
+     * <p>
+     * Aplica o dano ao herói e notifica todos os inscritos no {@link Publisher} 
+     * para que efeitos como veneno sejam processados após o ataque.
+     * </p>
+     * * @param e       O inimigo atacante.
+     * @param h       O herói defensor.
+     * @param p       O publicador para notificação de efeitos.
+     * @param fileTxt Nome do arquivo de arte.
      */
     public static void executarTurnoInimigo(Enemy e, Hero h, Publisher p, String fileTxt) {
         ConsoleUI.clearScreen();
-        ConsoleUI.printAsciiArt(fileTxt); // Imprime o desenho do rato gigante
+        ConsoleUI.printAsciiArt(fileTxt);
         
         System.out.println(ConsoleUI.RED + "--- Turno do Inimigo ---" + ConsoleUI.RESET);
         System.out.println(e.getName() + " atacou ferozmente!");
@@ -155,7 +189,6 @@ public class Interface {
         e.atack(h, p);
         p.notifySubscribers();
         
-        // Pausa por 2 segundos (4000 milissegundos) para o jogador conseguir ler o dano
         ConsoleUI.pause(3000); 
     }
 }
