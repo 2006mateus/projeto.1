@@ -59,6 +59,6 @@ public class Venom extends Effects {
             }
         }
 
-        System.out.println("O efeito de veneno vai dar um dano de " + this.damage + " extra!");
+        System.out.println("O efeito de veneno vai dar um dano de " + this.damage + " extra em " + this.owner.name + "!");
     }
 }

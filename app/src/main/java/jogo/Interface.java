@@ -42,6 +42,10 @@ public class Interface {
          * Mantém o jogo ativo enquanto ambos os combatentes estiverem vivos e o jogador não sair.
          */
         while (playing) {
+            
+            if (!inimigo.isAlive()) {
+                break;
+            }
             ConsoleUI.clearScreen();
 
             // Lógica de início de turno: Reset de escudo e energia

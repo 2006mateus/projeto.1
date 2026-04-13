@@ -40,12 +40,10 @@ public class Strength extends Effects {
      */
     @Override
     public void getNotify() {
+        
         if (this.stacks <= 0) {
             owner.removeEffect(this, owner);
-            return;
+            // publisher.unsubscribe(this);
         }
-        
-        this.stacks -= 1;
-        System.out.println("O efeito de Foco vai levar a um aumento de " + this.strengthing + " no dano de seu proximo ataque!");
     }
 }

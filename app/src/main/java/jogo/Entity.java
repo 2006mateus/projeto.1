@@ -190,9 +190,21 @@ public abstract class Entity {
      * @return O valor total de bônus de fortalecimento, ou 0 se nenhum estiver ativo.
      */
     public int getStrengthBonus() {
-        for (Effects e : this.effectsList) {
-            if (e instanceof Strength) {
-                return ((Strength) e).getStrengthening();
+        int totalBonus = 0;
+
+        for (int i = this.effectsList.size() - 1; i >= 0; i--) {
+            Effects effect = this.effectsList.get(i);
+            
+            if (effect instanceof Strength) {
+                Strength strength = (Strength) effect;
+                totalBonus = strength.getStrengthening();
+                strength.stacks -= 1; 
+
+                if (strength.getStacks() <= 0) {
+                    this.effectsList.remove(i);
+                }
+                
+                return totalBonus;
             }
         }
         return 0;
