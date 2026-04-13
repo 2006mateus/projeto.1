@@ -43,7 +43,7 @@ public class Interface {
          */
         while (playing) {
             
-            if (!inimigo.isAlive()) {
+            if (!inimigo.isAlive() || !explorador.isAlive()) {
                 break;
             }
             ConsoleUI.clearScreen();
