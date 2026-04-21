@@ -1,54 +1,72 @@
-## Jogo de Cartas Insipirado em Slay The Spire
+=====================================
 
-Um jogo de cartas estratégico PvE (Player vs Environment) desenvolvido em Java, fortemente inspirado nas mecânicas de Slay the Spire. O jogador assume o papel de um explorador que deve gerenciar sua energia e deck para derrotar inimigos em combates táticos.
+DESCRIÇÃO DO PROJETO
+--------------------
+Este é um jogo de cartas tático PvE (Player vs Environment) desenvolvido em Java, 
+inspirado em mecânicas de roguelikes de construção de baralho (deck-building). 
+O projeto foi estruturado para demonstrar conceitos avançados de Programação 
+Orientada a Objetos (POO), incluindo herança, polimorfismo e padrões de projeto.
 
-## O Jogo
-
-O objetivo é sobreviver ao ataque dos inimigos utilizando cartas de Ataque e Defesa.
-
-    Energia: O herói começa cada turno com 10 pontos de energia.
-
-    Mão de Cartas: O limite máximo é de 4 cartas simultâneas.
-
-    Sistema de Deck: Quando o baralho acaba, a pilha de descarte é embaralhada e retorna ao jogo (Recycle).
-    
-## Classes Principais
-
-    Classe e descrição
-    
-    App.java: Gerencia o loop do jogo, entradas do usuário (Scanner) e a lógica de turnos.
-
-    CardsManager.java: Responsável pela lógica do baralho. Gerencia a compra de cartas, a mão do jogador, a pilha de descarte e o embaralhamento.
-
-    Entity.java: Classe abstrata base para todos os seres vivos (Herói e Inimigo), contendo vida, escudo e lógica de dano.
-
-    Cards.java: Classe abstrata que define o modelo base para qualquer carta (nome, descrição e uso de energia).
+O jogador assume o papel de um explorador que navega por um mapa de salas, 
+enfrenta inimigos em combates por turnos e deve gerenciar seus recursos (energia 
+e vida) para chegar ao fim da jornada.
 
 
-## Entidades e Combate
+MECÂNICAS DE JOGO
+-----------------
+1. Sistema de Turnos:
+   - Turno do Herói: O jogador compra cartas e as utiliza consumindo Energia.
+   - Turno do Inimigo: O oponente realiza ações automáticas pré-definidas.
+   - Fase de Efeitos: Status como Veneno ou Cura são processados pelo sistema.
 
-    Hero: O personagem do jogador. Possui um sistema de energia limitado por turno.
+2. Mapa em Árvore:
+   - A progressão não é linear. O jogo utiliza uma estrutura de árvore (Map.java) 
+     onde cada nó é uma 'Sala'. O jogador escolhe caminhos entre salas que podem 
+     conter diferentes inimigos ou desafios.
 
-    Enemy: O adversário. Possui padrões de ataque automáticos ao final do turno do jogador.
+3. Combate e Defesa:
+   - Além da vida (HP), as entidades possuem 'Escudo'. O escudo absorve o dano 
+     antes da vida ser afetada, mas é resetado no início de cada turno do herói.
 
-    Sistema de Dano: O dano é mitigado primeiro pelo Escudo. Se o dano exceder o escudo, a Vida é subtraída.
 
-## Efeitos
+ESTRUTURA DE CLASSES
+--------------------
+- App.java: Ponto de entrada que inicializa o herói, o mapa e o loop de navegação.
+- Interface.java: Motor de jogo que gerencia a lógica de combate e entradas.
+- Battle.java: Mediador que controla o ciclo de vida de um encontro específico.
+- CardsManager.java: Gerencia o Deck, Mão, Descarte e a mecânica de 'Recycle'.
+- Entity.java (Base): Classe abstrata para Hero e Enemy, gerindo atributos vitais.
+- Hero.java: Entidade do jogador com sistema de Energia.
+- Enemy.java: Entidade adversária com IA de ataque e chances de aplicar debuffs.
+- ConsoleUI.java: Utilitário para artes ASCII, cores ANSI e limpeza de terminal.
 
-    Veneno (Venom): Um efeito negativo (debuff) aplicado a inimigos. Causa dano direto à vida no final do turno do alvo, ignorando o escudo. O número de acúmulos diminui em 1 após cada ativação.
 
-    Força (Strength): Um efeito positivo (buff) aplicado ao Herói. Não causa dano por si só, mas é consultado por cartas de ataque para somar bônus de dano a cada golpe desferido.
+CARTAS E EFEITOS
+----------------
+O jogo possui uma hierarquia de cartas baseada na classe abstrata 'Cards':
+- DamageCard: Causa dano direto (amplificado por Força).
+- ShieldCard: Concede proteção temporária (Escudo).
+- HealingCard: Restaura vida imediatamente.
+- VenomCard: Causa dano e aplica status de veneno.
+- StrengthCard / PassiveHealingCard: Aplicam buffs duradouros.
 
-    Cura passiva (PassiveHealing): Um efeito positivo (buff) aplicado ao Herói. Recupera vida do usuário no final do turno. O número de acúmulos diminui em 1 em cada ativação.
+PADRÃO DE PROJETO: OBSERVER
+---------------------------
+O sistema de status (Buffs/Debuffs) utiliza o padrão Observer:
+- Publisher: Mantém a lista de efeitos ativos e os notifica a cada turno.
+- Subscriber: Classe base para os efeitos.
+- Efeitos Implementados: 
+    * Venom (Veneno): Dano recorrente que ignora parte da defesa.
+    * Strength (Força): Aumenta o dano de todas as cartas de ataque.
+    * PassiveHealing: Regeneração de vida ao longo do tempo.
 
-## Como compilar e rodar
 
-Compilando:
-```
-./gradlew build
-```
+REQUISITOS E EXECUÇÃO
+---------------------
+O projeto utiliza o Gradle como ferramenta de automação.
 
-Rodando:
-```
-./gradlew run
-```
+- Para compilar:
+  ./gradlew build
+
+- Para executar:
+  ./gradlew run
