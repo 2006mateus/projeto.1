@@ -1,6 +1,7 @@
 package jogo;
 
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * Classe responsável por gerenciar o ciclo de vida de um combate.
@@ -57,8 +58,18 @@ public class Battle extends Evento{
         return result;
     }
 
+    public void recompensa(Hero explorador, CardsManager ds) {
+        Random gerador = new Random();
+        int num = gerador.nextInt(3);
 
-    public void recompensa(){
+        if (num == 0) {
+            System.out.println("Voce ganhou 50 de ouro");
+            explorador.gainGold(50);
+        } else if (num == 1) {
+            DamageCard bazuca = new DamageCard("bazuca", "uma arma de destuição em massa!", 7, 35);
+            ds.addCard(bazuca);
+        } else if (num == 2) {
 
+        }
     }
 }
