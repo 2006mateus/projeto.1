@@ -1,5 +1,7 @@
 package jogo;
 
+import java.util.Scanner;
+
 public abstract class Evento {
-    public void start(){}
+    public abstract void start(Hero explorer, CardsManager deckSystem, Scanner reader);
 }

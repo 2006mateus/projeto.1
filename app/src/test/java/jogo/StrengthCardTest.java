@@ -8,7 +8,7 @@ public class StrengthCardTest {
     @Test
     public void testStrengthCardUsage() {
 
-        Hero user = new Hero("Teste", 100, 0, 100, 0);
+        Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Publisher pub = new Publisher();
         StrengthCard card = new StrengthCard("Grito de Guerra", "Fúria", "Aumenta força em 5", 1, 5, 2);
 
