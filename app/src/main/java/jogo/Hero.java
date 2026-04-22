@@ -73,4 +73,12 @@ public class Hero extends Entity {
     public void gainGold(int ouro){
         this.gold += ouro;
     }
+
+    public int getMaxHealth(){
+        return this.MAX_HEALTH;
+    }
+
+    public void loseGold(int ouro){
+        this.gold -= ouro;
+    }
 }

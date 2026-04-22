@@ -2,35 +2,51 @@ package jogo;
 
 import java.util.Scanner;
 
-public class Bonfire extends Evento{
-    public void start(Hero explorer){
-        System.out.println("Bem-vindo a fogueira, faça uma escolha para ajudar na sua recuperaçao");
-        System.out.println("====================================================================================================");
-        System.out.println("Descanso profundo: Recupere cerca de 30% da sua vida maxima");
-        System.out.println("Cardio: Aumente sua energia maxima em 10%");
+public class Bonfire extends Evento {
 
-        Scanner scan = new Scanner(System.in);
-        String comando;
-        double life_increase = 0.3 * explorer.MAX_HEALTH;
-        double energyIncrease = (1.1 * explorer.getMaxEnergy());
+    private String titulo;
+    private String descricao;
 
-        comando = scan.next();
-        boolean correct = false;
+    // Construtor: Aqui definimos o "corpo" da fogueira
+    public Bonfire() {
+        this.titulo = "Fogueira";
+        this.descricao = "O calor das brasas renova suas energias. O que deseja fazer?";
+    }
 
-        while (correct == false){
-            if (comando == "Descanso profundo"){
-                explorer.gainHealth(life_increase);
-                System.out.println("Sua vida foi aumentada em 30%!");
-                correct = true;
-            } else if (comando == "Polimento"){
-                explorer.setMaxEnergy(energyIncrease);
-                System.out.println("Sua energia maxima foi aumentada em 10%!");
-                correct = true;
-            } else {
-                System.out.println("Escreva um comando valido!");
+    @Override
+    public void start(Hero explorer, CardsManager deckSystem, Scanner reader) {
+        System.out.println("\n[" + this.titulo + "] Você encontra um lugar seguro para descansar...");
+        System.out.println(this.descricao);
+        System.out.println("==========================================================");
+        System.out.println("1. Descanso Profundo: Recupere +30% da vida máxima");
+        System.out.println("2. Cardio: Aumente sua energia máxima em 10%");
+        System.out.println("==========================================================");
+
+        boolean choiceMade = false;
+        
+        while (!choiceMade) {
+            System.out.print("Escolha (1-2): ");
+            
+            // Verificação simples para evitar erro se o cara digitar letra em vez de número
+            String input = reader.next();
+
+            if (input.equals("1")) {
+                // Cálculo baseado no HP Máximo do herói
+                double cura = 0.3 * explorer.getMaxHealth(); 
+                explorer.gainHealth(cura);
+                System.out.println("Você dormiu profundamente. Vida recuperada!");
+                choiceMade = true;
+            } 
+            else if (input.equals("2")) {
+                // Aumento de energia permanente ou para a próxima run
+                double novaEnergia = explorer.getMaxEnergy() * 1.10;
+                explorer.setMaxEnergy(novaEnergia);
+                System.out.println("Você se sente mais disposto! Energia máxima aumentada.");
+                choiceMade = true;
+            } 
+            else {
+                System.out.println("Comando inválido! Digite apenas 1 ou 2.");
             }
         }
-
-        scan.close();
     }
 }
