@@ -85,7 +85,7 @@ public abstract class Entity {
      * Incrementa a vida atual, impedindo que ultrapasse o valor de vida máxima.
      * * @param healing Quantidade de pontos de vida a restaurar.
      */
-    public void gainHealth(int healing) {
+    public void gainHealth(double healing) {
         if (this.health + healing > this.MAX_HEALTH) {
             this.health = MAX_HEALTH;
         } else {

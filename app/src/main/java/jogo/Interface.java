@@ -87,7 +87,7 @@ public class Interface {
             while (commands != 0 && explorador.getEnergy() != 0) {
                 exibirStatus(explorador, inimigo, fileTxt);
 
-                System.out.println(ConsoleUI.YELLOW + explorador.getEnergy() + "/10 de Energia disponivel" + ConsoleUI.RESET);
+                System.out.println(ConsoleUI.YELLOW + explorador.getEnergy() + "/" + explorador.getMaxEnergy() + " de Energia disponivel" + ConsoleUI.RESET);
                 System.out.println(ConsoleUI.GREEN + "1 - Abrir mão. " + deckSystem.getQuantityHand() + " cartas" + ConsoleUI.RESET);
                 System.out.println(ConsoleUI.GREEN + "2 - Encerrar turno" + ConsoleUI.RESET);
                 System.out.println(ConsoleUI.GREEN + "0 - Sair do jogo" + ConsoleUI.RESET);

@@ -37,7 +37,7 @@ public class App {
         nome = reader.next();
         
         // Inicialização do Herói com atributos: Nome, HP, XP, Atk base, Def base.
-        Hero explorador = new Hero(nome, 100, 0, 10, 20);
+        Hero explorador = new Hero(nome, 100, 0, 10, 20, 10);
         
         // Definição do bestiário (Inimigos iniciais, intermediários e o Boss Final)
         Enemy rato = new Enemy("Rato de academia", 20, 0, 15, 0);
@@ -103,7 +103,7 @@ public class App {
             // Lógica de Combate: Acionada se a sala possuir um inimigo instanciado
             if (salaAtualDados.getInimigo() != null) {
 
-                result = Battle.startBattle(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
+                result = Battle.start(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
                 
                 // Se a batalha resultar em derrota, encerra o loop
                 if (!result) {

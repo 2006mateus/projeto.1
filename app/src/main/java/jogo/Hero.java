@@ -7,7 +7,9 @@ package jogo;
  */
 public class Hero extends Entity {
     /** A quantidade atual de energia disponível para o turno. */
-    private int energy;
+    private double energy;
+    private double maxEnergy;
+    private int gold;
 
     /**
      * Construtor para criar um novo herói.
@@ -18,9 +20,10 @@ public class Hero extends Entity {
      * @param energy    Quantidade inicial de energia.
      * @param maxShield Limite máximo de escudo permitido.
      */
-    public Hero(String name, int health, int shield, int energy, int maxShield) {
+    public Hero(String name, int health, int shield, int energy, int maxShield, int maxEnergy) {
         super(name, health, shield, maxShield);
         this.energy = energy;
+        this.maxEnergy = maxEnergy;
     }
 
     /**
@@ -40,7 +43,7 @@ public class Hero extends Entity {
      *
      * @return A energia disponível.
      */
-    public int getEnergy() {
+    public double getEnergy() {
         return this.energy;
     }
 
@@ -53,5 +56,21 @@ public class Hero extends Entity {
      */
     public void setEnergy(int energia) {
         this.energy = 10;
+    }
+
+    public double getMaxEnergy(){
+        return this.maxEnergy;
+    }
+
+    public void setMaxEnergy(double newMaxEnergy){
+        this.maxEnergy = newMaxEnergy;
+    }
+
+    public int getGold(){
+        return this.gold;
+    }
+
+    public void gainGold(int ouro){
+        this.gold += ouro;
     }
 }

@@ -10,7 +10,7 @@ import java.util.Scanner;
  * garantindo que o estado do jogo seja resetado para o próximo encontro.
  * </p>
  */
-public class Battle {
+public class Battle extends Evento{
 
     /**
      * Inicia e controla o fluxo de uma batalha entre o herói e um inimigo.
@@ -30,7 +30,7 @@ public class Battle {
      * @param fileTxt    O caminho ou nome do arquivo de texto contendo a arte ASCII ou dados da sala.
      * @return {@code true} se o herói venceu a batalha; {@code false} se o herói foi derrotado.
      */
-    public static boolean startBattle(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
+    public static boolean start(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
         boolean result = false;
         System.out.println(ConsoleUI.RED + "A batalha começa!" + ConsoleUI.RESET);
         ConsoleUI.pause(1000);
@@ -55,5 +55,10 @@ public class Battle {
         p.clearPublisher();             // Limpa os observadores de eventos
 
         return result;
+    }
+
+
+    public void recompensa(){
+
     }
 }
