@@ -69,7 +69,7 @@ public class Battle extends Evento{
             DamageCard bazuca = new DamageCard("bazuca", "uma arma de destuição em massa!", 7, 35);
             ds.addCard(bazuca);
         } else if (num == 2) {
-
+            
         }
     }
 }

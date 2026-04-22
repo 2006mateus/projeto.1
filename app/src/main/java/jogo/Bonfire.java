@@ -2,10 +2,9 @@ package jogo;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Bonfire extends Evento {
-    private List<BonfireStrategy> opcoes = new ArrayList<>();
+    private ArrayList<BonfireStrategy> opcoes = new ArrayList<>();
 
     public Bonfire() {
         opcoes.add(new RestStrategy());
