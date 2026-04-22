@@ -8,7 +8,7 @@ public class DamageCardTest {
     @Test
     public void testDamageWithStrengthBonus() {
 
-        Hero user = new Hero("Explorador", 100, 0, 100, 0);
+        Hero user = new Hero("Explorador", 100, 0, 100, 0, 10);
         Enemy enemy = new Enemy("Rato", 50, 0, 50, 0);
         Publisher pub = new Publisher();
 

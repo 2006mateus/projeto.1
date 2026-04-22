@@ -8,7 +8,7 @@ public class EffectsTest {
     @Test
     public void testBaseEffectsAttributes() {
 
-        Hero owner = new Hero("Heroi", 100, 0, 100, 10);
+        Hero owner = new Hero("Heroi", 100, 0, 100, 10, 10);
 
         Effects effect = new Strength("Força", owner, 3, 5);
 
@@ -18,7 +18,7 @@ public class EffectsTest {
 
     @Test
     public void testGetStringRepresentation() {
-        Hero owner = new Hero("Heroi", 100, 0, 100, 10);
+        Hero owner = new Hero("Heroi", 100, 0, 100, 10, 10);
         Effects effect = new Strength("Veneno", owner, 5, 0);
 
         String expected = "Veneno (Acumulos: 5)";

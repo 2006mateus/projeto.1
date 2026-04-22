@@ -11,7 +11,7 @@ public class Bonfire extends Evento {
         opcoes.add(new EnergyStrategy());
     }
 
-    public void start(Hero explorer) {
+    public void start(Hero explorer, CardsManager ds, Scanner scanner) {
         System.out.println("Bem-vindo a fogueira, escolha uma opcao para sua recuperacao:");
         System.out.println("============================================================");
 

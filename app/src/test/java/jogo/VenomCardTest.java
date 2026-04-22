@@ -8,7 +8,7 @@ public class VenomCardTest {
     @Test
     public void testVenomCardFullEffect() {
 
-        Hero user = new Hero("Teste", 100, 0, 100, 0);
+        Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Enemy enemy = new Enemy("Cobra", 50, 0, 50, 0);
         Publisher pub = new Publisher();
         VenomCard card = new VenomCard("Flecha Venenosa", "Veneno Grave", "Dano 5 + 2 veneno", 1, 5, 2, 3);
@@ -20,7 +20,7 @@ public class VenomCardTest {
 
     @Test
     public void testVenomCardWithStrength() {
-        Hero user = new Hero("Teste", 100, 0, 100, 0);
+        Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Enemy enemy = new Enemy("Slime", 50, 0, 50, 0);
         VenomCard card = new VenomCard("Nuvem", "Toxico", "Desc", 1, 10, 1, 1);
         
