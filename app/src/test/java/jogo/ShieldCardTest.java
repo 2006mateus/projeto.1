@@ -11,7 +11,7 @@ public class ShieldCardTest {
         Hero user = new Hero("Teste", 100, 0, 10, 50, 10); 
         Publisher pub = new Publisher();
 
-        ShieldCard card = new ShieldCard("Escudo de Ferro", "Defesa", 1, 15);
+        ShieldCard card = new ShieldCard("Escudo de Ferro", "Defesa", 1, 15, 1);
 
         card.use(user, user, pub);
 
@@ -22,7 +22,7 @@ public class ShieldCardTest {
     public void testShieldLimit() {
 
         Hero user = new Hero("Teste", 100, 0, 10, 20, 10);
-        ShieldCard card = new ShieldCard("Escudo Divino", "Defesa", 1, 30);
+        ShieldCard card = new ShieldCard("Escudo Divino", "Defesa", 1, 30, 1);
 
         card.use(user, user, new Publisher());
 
@@ -31,7 +31,7 @@ public class ShieldCardTest {
 
     @Test
     public void testGetShieldGetter() {
-        ShieldCard card = new ShieldCard("Teste", "Desc", 1, 10);
+        ShieldCard card = new ShieldCard("Teste", "Desc", 1, 10, 1);
         assertEquals(10, card.getShield());
     }
 }

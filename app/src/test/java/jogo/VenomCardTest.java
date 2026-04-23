@@ -11,7 +11,7 @@ public class VenomCardTest {
         Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Enemy enemy = new Enemy("Cobra", 50, 0, 50, 0);
         Publisher pub = new Publisher();
-        VenomCard card = new VenomCard("Flecha Venenosa", "Veneno Grave", "Dano 5 + 2 veneno", 1, 5, 2, 3);
+        VenomCard card = new VenomCard("Flecha Venenosa", "Veneno Grave", "Dano 5 + 2 veneno", 1, 5, 2, 3, 1);
 
         card.use(user, enemy, pub);
         assertEquals(45, enemy.getHealth(), "O dano imediato de 5 deveria ser aplicado");
@@ -22,7 +22,7 @@ public class VenomCardTest {
     public void testVenomCardWithStrength() {
         Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Enemy enemy = new Enemy("Slime", 50, 0, 50, 0);
-        VenomCard card = new VenomCard("Nuvem", "Toxico", "Desc", 1, 10, 1, 1);
+        VenomCard card = new VenomCard("Nuvem", "Toxico", "Desc", 1, 10, 1, 1, 1);
         
         card.use(user, enemy, new Publisher());
         assertEquals(40, enemy.getHealth(), "O dano base 10 deveria funcionar");

@@ -8,7 +8,7 @@ public class CardsManagerTest {
     @Test
     public void testAddAndGetQuantity() {
         CardsManager manager = new CardsManager();
-        DamageCard card = new DamageCard("Ataque", "Dano", 1, 10, );
+        DamageCard card = new DamageCard("Ataque", "Dano", 1, 10, 1);
         
         manager.addCard(card);
         
@@ -20,7 +20,7 @@ public class CardsManagerTest {
     public void testMoveToPurchasableAndBuy() {
         CardsManager manager = new CardsManager();
 
-        for(int i=0; i<4; i++) manager.addCard(new DamageCard("C"+i, "D", 1, 5));
+        for(int i=0; i<4; i++) manager.addCard(new DamageCard("C"+i, "D", 1, 5, 1));
         
         manager.moveToPurchasable();
         assertEquals(4, manager.getPurchasableQuantity());
@@ -44,7 +44,7 @@ public class CardsManagerTest {
         CardsManager manager = new CardsManager();
         Hero hero = new Hero("Hero", 100, 0, 10, 0, 10);
         Enemy enemy = new Enemy("Enemy", 50, 0, 50, 0);
-        DamageCard card = new DamageCard("Golpe", "Dano", 5, 10);
+        DamageCard card = new DamageCard("Golpe", "Dano", 5, 10, 1);
 
         manager.addCard(card);
         manager.moveToPurchasable();
@@ -61,7 +61,7 @@ public class CardsManagerTest {
     public void testUseCardWithoutEnergy() {
         CardsManager manager = new CardsManager();
         Hero hero = new Hero("Hero", 100, 0, 2, 0, 10);
-        DamageCard card = new DamageCard("Super", "Dano", 5, 10);
+        DamageCard card = new DamageCard("Super", "Dano", 5, 10, 1);
         
         manager.addCard(card);
         manager.moveToPurchasable();
@@ -76,7 +76,7 @@ public class CardsManagerTest {
     @Test
     public void testRecycleAndClear() {
         CardsManager manager = new CardsManager();
-        DamageCard card = new DamageCard("C", "D", 1, 1);
+        DamageCard card = new DamageCard("C", "D", 1, 1, 1);
         
         manager.discardCard(card);
         manager.recycleDeck();

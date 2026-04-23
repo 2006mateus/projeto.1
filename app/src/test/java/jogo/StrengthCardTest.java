@@ -10,7 +10,7 @@ public class StrengthCardTest {
 
         Hero user = new Hero("Teste", 100, 0, 100, 0, 10);
         Publisher pub = new Publisher();
-        StrengthCard card = new StrengthCard("Grito de Guerra", "Fúria", "Aumenta força em 5", 1, 5, 2);
+        StrengthCard card = new StrengthCard("Grito de Guerra", "Fúria", "Aumenta força em 5", 1, 5, 2, 1);
 
         card.use(user, null, pub);
         assertFalse(user.effectsList.isEmpty(), "O usuário deveria ter recebido o efeito de força");
@@ -20,7 +20,7 @@ public class StrengthCardTest {
     @Test
     public void testStrengthCardAttributes() {
 
-        StrengthCard card = new StrengthCard("Foco", "Foco", "Desc", 2, 10, 3);
+        StrengthCard card = new StrengthCard("Foco", "Foco", "Desc", 2, 10, 3, 1);
         
         assertEquals("Foco", card.getName());
         assertEquals(2, card.getCost());

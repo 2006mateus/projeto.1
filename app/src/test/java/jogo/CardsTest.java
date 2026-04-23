@@ -7,7 +7,7 @@ public class CardsTest {
 
     @Test
     public void testBaseCardAttributes() {
-        Cards card = new DamageCard("Ataque Base", "Desc", 1, 10);
+        Cards card = new DamageCard("Ataque Base", "Desc", 1, 10, 1);
         assertEquals("Ataque Base", card.getName());
         assertEquals("Desc", card.getDescription());
         assertEquals(1, card.getCost());

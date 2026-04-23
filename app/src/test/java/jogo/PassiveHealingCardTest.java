@@ -10,7 +10,7 @@ public class PassiveHealingCardTest {
 
         Hero user = new Hero("Clérigo", 50, 0, 10, 100, 10);
         Publisher pub = new Publisher();
-        PassiveHealingCard card = new PassiveHealingCard("Prece", "Regen", "Cura 10 + Regen", 1, 10, 2);
+        PassiveHealingCard card = new PassiveHealingCard("Prece", "Regen", "Cura 10 + Regen", 1, 10, 2, 1);
 
         user.takeDamage(20);
         card.use(user, null, pub);
@@ -21,7 +21,7 @@ public class PassiveHealingCardTest {
 
     @Test
     public void testPassiveHealingCardAttributes() {
-        PassiveHealingCard card = new PassiveHealingCard("Teste", "Efeito", "Desc", 3, 5, 1);
+        PassiveHealingCard card = new PassiveHealingCard("Teste", "Efeito", "Desc", 3, 5, 1, 1);
         
         assertEquals("Teste", card.getName());
         assertEquals(3, card.getCost());
