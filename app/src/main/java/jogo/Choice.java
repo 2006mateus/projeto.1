@@ -16,7 +16,7 @@ public class Choice extends Evento {
     }
 
     @Override
-    public void start(Hero explorer, CardsManager deckSystem, Scanner reader) {
+    public boolean start(Hero explorer, Enemy inimigo, CardsManager ds, Scanner reader, Publisher p, String fileTxt) {
         System.out.println("\n--- " + titulo + " ---");
         System.out.println(descricao);
         System.out.println("1. " + opcao1);
@@ -51,5 +51,7 @@ public class Choice extends Evento {
                 explorer.gainGold(200);
             }
         }
+
+        return true;
     }
 }

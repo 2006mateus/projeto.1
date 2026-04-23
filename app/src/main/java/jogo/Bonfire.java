@@ -14,7 +14,7 @@ public class Bonfire extends Evento {
     }
 
     @Override
-    public void start(Hero explorer, CardsManager deckSystem, Scanner reader) {
+    public boolean start(Hero explorer, Enemy inimigo, CardsManager ds, Scanner reader, Publisher p, String fileTxt) {
         System.out.println("\n[" + this.titulo + "] Você encontra um lugar seguro para descansar...");
         System.out.println(this.descricao);
         System.out.println("==========================================================");
@@ -48,5 +48,7 @@ public class Bonfire extends Evento {
                 System.out.println("Comando inválido! Digite apenas 1 ou 2.");
             }
         }
+
+        return true;
     }
 }

@@ -32,6 +32,7 @@ public class App {
         Scanner reader = new Scanner(System.in);
         CardsManager deckSystem = new CardsManager();
         Publisher publisher = new Publisher();
+        Battle battle = new Battle();
 
         System.out.println("Digite o nome de seu heroi:");
         nome = reader.next();
@@ -103,7 +104,7 @@ public class App {
             // Lógica de Combate: Acionada se a sala possuir um inimigo instanciado
             if (salaAtualDados.getInimigo() != null) {
 
-                result = Battle.start(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
+                result = battle.start(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
                 
                 // Se a batalha resultar em derrota, encerra o loop
                 if (!result) {

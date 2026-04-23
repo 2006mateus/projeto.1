@@ -30,7 +30,9 @@ public class Battle extends Evento{
      * @param fileTxt    O caminho ou nome do arquivo de texto contendo a arte ASCII ou dados da sala.
      * @return {@code true} se o herói venceu a batalha; {@code false} se o herói foi derrotado.
      */
-    public static boolean start(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
+
+    @Override
+    public boolean start(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
         boolean result = false;
         System.out.println(ConsoleUI.RED + "A batalha começa!" + ConsoleUI.RESET);
         ConsoleUI.pause(1000);
@@ -58,7 +60,9 @@ public class Battle extends Evento{
     }
 
 
-    public void recompensa(){
-
+    public void recompensa(Hero explorer){
+        System.out.println("\n--- RECOMPENSA DE VITÓRIA ---");
+        explorer.gainGold(50);
+        System.out.println("\n--- Parabens! Voce recebeu 50 de ouro! ---");
     }
 }
