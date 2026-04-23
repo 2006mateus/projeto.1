@@ -11,7 +11,7 @@ public class Bonfire extends Evento {
         opcoes.add(new EnergyStrategy());
     }
 
-    public void start(Hero explorer, CardsManager ds, Scanner scanner) {
+    public boolean start(Hero explorer, Enemy enemy, CardsManager ds, Scanner scanner, Publisher p, String str) {
         System.out.println("Bem-vindo a fogueira, escolha uma opcao para sua recuperacao:");
         System.out.println("============================================================");
 
@@ -39,5 +39,6 @@ public class Bonfire extends Evento {
             }
         }
         scan.close();
+        return true;
     }
 }

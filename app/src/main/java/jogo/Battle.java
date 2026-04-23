@@ -1,7 +1,6 @@
 package jogo;
 
 import java.util.Scanner;
-import java.util.Random;
 
 /**
  * Classe responsável por gerenciar o ciclo de vida de um combate.
@@ -31,7 +30,9 @@ public class Battle extends Evento{
      * @param fileTxt    O caminho ou nome do arquivo de texto contendo a arte ASCII ou dados da sala.
      * @return {@code true} se o herói venceu a batalha; {@code false} se o herói foi derrotado.
      */
-    public static boolean start(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
+
+    @Override
+    public boolean start(Hero explorador, Enemy inimigo, CardsManager ds, Scanner s, Publisher p, String fileTxt){
         boolean result = false;
         System.out.println(ConsoleUI.RED + "A batalha começa!" + ConsoleUI.RESET);
         ConsoleUI.pause(1000);
@@ -58,18 +59,9 @@ public class Battle extends Evento{
         return result;
     }
 
-    public void recompensa(Hero explorador, CardsManager ds) {
-        Random gerador = new Random();
-        int num = gerador.nextInt(3);
-
-        if (num == 0) {
-            System.out.println("Voce ganhou 50 de ouro");
-            explorador.gainGold(50);
-        } else if (num == 1) {
-            DamageCard bazuca = new DamageCard("bazuca", "uma arma de destuição em massa!", 7, 35);
-            ds.addCard(bazuca);
-        } else if (num == 2) {
-            
-        }
+    public void recompensa(Hero explorer){
+        System.out.println("\n--- RECOMPENSA DE VITÓRIA ---");
+        explorer.gainGold(50);
+        System.out.println("\n--- Parabens! Voce recebeu 50 de ouro! ---");
     }
 }
