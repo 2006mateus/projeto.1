@@ -60,6 +60,12 @@ public class Map {
         DefaultMutableTreeNode elefanteMeio = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
         DefaultMutableTreeNode elfanteDireita = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
 
+        DefaultMutableTreeNode bonfire = new DefaultMutableTreeNode(new Sala("Fogueira", null, null));
+        DefaultMutableTreeNode store = new DefaultMutableTreeNode(new Sala("Loja", null, null));
+        DefaultMutableTreeNode choices1 = new DefaultMutableTreeNode(new Sala("Um Baú Suspeito", null, null));
+        DefaultMutableTreeNode choices2 = new DefaultMutableTreeNode(new Sala("Rato esquisito", null, null));
+        DefaultMutableTreeNode choices3 = new DefaultMutableTreeNode(new Sala("Hater do Kanye West", null, null));
+
         // 2. Montagem da estrutura (Definição de Pais e Filhos)
         
         // Conexão da entrada com as três rotas iniciais
@@ -69,17 +75,23 @@ public class Map {
 
         // Estruturação do Caminho Esquerdo
         salaEsquerda.add(ninhoRato);
-        ninhoRato.add(descansoUrso); 
+        ninhoRato.add(bonfire);
+        bonfire.add(choices2);
+        choices1.add(descansoUrso);
         descansoUrso.add(elefanteEsquerda); 
 
         // Estruturação do Caminho Central
         salaMeio.add(cantoCabra);   
-        cantoCabra.add(kanyeWest);
+        cantoCabra.add(bonfire);
+        bonfire.add(choices3);
+        choices3.add(kanyeWest);
         kanyeWest.add(elefanteMeio);    
 
         // Estruturação do Caminho Direito
         salaDireita.add(ninhoCobra); 
         ninhoCobra.add(arvoreMacaco);
+        bonfire.add(choices1);
+        choices1.add(arvoreMacaco);
         arvoreMacaco.add(elfanteDireita);
     }
 }
