@@ -59,7 +59,6 @@ public class Battle extends Evento{
         return result;
     }
 
-
     public void recompensa(Hero explorer){
         System.out.println("\n--- RECOMPENSA DE VITÓRIA ---");
         explorer.gainGold(50);
