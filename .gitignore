@@ -9,4 +9,5 @@ bin/
 app/bin/
 
 # Ignore all .class files
+*.classbin/
 *.class
