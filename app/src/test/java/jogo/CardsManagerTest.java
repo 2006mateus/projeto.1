@@ -8,7 +8,7 @@ public class CardsManagerTest {
     @Test
     public void testAddAndGetQuantity() {
         CardsManager manager = new CardsManager();
-        DamageCard card = new DamageCard("Ataque", "Dano", 1, 10);
+        DamageCard card = new DamageCard("Ataque", "Dano", 1, 10, );
         
         manager.addCard(card);
         

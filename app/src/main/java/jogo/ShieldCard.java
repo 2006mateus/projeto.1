@@ -17,8 +17,8 @@ public class ShieldCard extends Cards {
      * @param shield      A quantidade de pontos de escudo a serem concedidos.
      * @param cost        O custo de energia para usar a carta.
      */
-    public ShieldCard(String name, String description, int cost, int shield) {
-        super(name, description, cost);
+    public ShieldCard(String name, String description, int cost, int shield, int price) {
+        super(name, description, cost, price);
         this.shield = shield;
     }
 

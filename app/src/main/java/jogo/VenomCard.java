@@ -23,8 +23,8 @@ public class VenomCard extends Cards {
      * @param hitPoints   O dano por turno que o veneno causará.
      * @param stacks      A duração (em cargas) do efeito de veneno.
      */
-    public VenomCard(String name, String effectName, String description, int cost, int damage, int hitPoints, int stacks) {
-        super(name, description, cost);
+    public VenomCard(String name, String effectName, String description, int cost, int damage, int hitPoints, int stacks, int price) {
+        super(name, description, cost, price);
         this.damage = damage;
         this.hitPoints = hitPoints;
         this.effectName = effectName;
