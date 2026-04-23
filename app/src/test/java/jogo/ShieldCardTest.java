@@ -8,7 +8,7 @@ public class ShieldCardTest {
     @Test
     public void testShieldEffect() {
 
-        Hero user = new Hero("Teste", 100, 0, 10, 50, 10); 
+        Hero user = new Hero("Teste", 100, 0, 10, 50, 10, 0); 
         Publisher pub = new Publisher();
 
         ShieldCard card = new ShieldCard("Escudo de Ferro", "Defesa", 1, 15, 1);
@@ -21,7 +21,7 @@ public class ShieldCardTest {
     @Test
     public void testShieldLimit() {
 
-        Hero user = new Hero("Teste", 100, 0, 10, 20, 10);
+        Hero user = new Hero("Teste", 100, 0, 10, 20, 10, 0);
         ShieldCard card = new ShieldCard("Escudo Divino", "Defesa", 1, 30, 1);
 
         card.use(user, user, new Publisher());

@@ -8,7 +8,7 @@ public class PassiveHealingCardTest {
     @Test
     public void testPassiveHealingCardUsage() {
 
-        Hero user = new Hero("Clérigo", 50, 0, 10, 100, 10);
+        Hero user = new Hero("Clérigo", 50, 0, 10, 100, 10, 0);
         Publisher pub = new Publisher();
         PassiveHealingCard card = new PassiveHealingCard("Prece", "Regen", "Cura 10 + Regen", 1, 10, 2, 1);
 

@@ -9,7 +9,7 @@ public class EnemyTest {
     public void testEnemyAttackBasic() {
 
         Enemy enemy = new Enemy("Rato", 50, 0, 10, 0);
-        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10);
+        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10, 0);
         Publisher pub = new Publisher();
 
         enemy.atack(hero, pub);
@@ -19,7 +19,7 @@ public class EnemyTest {
     @Test
     public void testEnemyVenomChance() {
         Enemy enemy = new Enemy("Cobra", 50, 0, 1, 0);
-        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10);
+        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10, 0);
         Publisher pub = new Publisher();
 
         for (int i = 0; i < 20; i++) { // deve aplicar alguma hora
@@ -31,7 +31,7 @@ public class EnemyTest {
     @Test
     public void testEnemyVenomAccumulation() {
         Enemy enemy = new Enemy("Cobra", 50, 0, 0, 0);
-        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10);
+        Hero hero = new Hero("Heroi", 100, 0, 100, 0, 10, 0);
         Publisher pub = new Publisher();
         Venom v = new Venom("Veneno Inicial", hero, 2, 5);
 

@@ -42,7 +42,7 @@ public class CardsManagerTest {
     @Test
     public void testUseCardWithEnergy() {
         CardsManager manager = new CardsManager();
-        Hero hero = new Hero("Hero", 100, 0, 10, 0);
+        Hero hero = new Hero("Hero", 100, 0, 10, 0, 10, 0);
         Enemy enemy = new Enemy("Enemy", 50, 0, 50, 0);
         DamageCard card = new DamageCard("Golpe", "Dano", 5, 10, 1);
 
@@ -60,7 +60,7 @@ public class CardsManagerTest {
     @Test
     public void testUseCardWithoutEnergy() {
         CardsManager manager = new CardsManager();
-        Hero hero = new Hero("Hero", 100, 0, 2, 0, 10);
+        Hero hero = new Hero("Hero", 100, 0, 2, 0, 10, 0);
         DamageCard card = new DamageCard("Super", "Dano", 5, 10, 1);
         
         manager.addCard(card);

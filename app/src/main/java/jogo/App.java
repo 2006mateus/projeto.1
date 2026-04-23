@@ -38,7 +38,7 @@ public class App {
         nome = reader.next();
         
         // Inicialização do Herói com atributos: Nome, HP, XP, Atk base, Def base.
-        Hero explorador = new Hero(nome, 100, 0, 10, 20, 10);
+        Hero explorador = new Hero(nome, 100, 0, 10, 20, 10, 0);
         
         // Definição do bestiário (Inimigos iniciais, intermediários e o Boss Final)
         Enemy rato = new Enemy("Rato de academia", 20, 0, 15, 0);

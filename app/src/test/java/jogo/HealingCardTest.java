@@ -8,7 +8,7 @@ public class HealingCardTest {
     @Test
     public void testHealingEffect() {
 
-        Hero user = new Hero("Teste", 50, 0, 10, 0, 10); 
+        Hero user = new Hero("Teste", 50, 0, 10, 0, 10, 0); 
         Publisher pub = new Publisher();
 
         HealingCard card = new HealingCard("Poção", "Cura 30", 1, 30, 1);
@@ -22,7 +22,7 @@ public class HealingCardTest {
     @Test
     public void testHealingAtMaxHealth() {
 
-        Hero user = new Hero("Teste", 50, 0, 10, 0, 10);
+        Hero user = new Hero("Teste", 50, 0, 10, 0, 10, 0);
         HealingCard card = new HealingCard("Poção Grande", "Cura 50", 1, 50, 1);
 
         user.takeDamage(40);
