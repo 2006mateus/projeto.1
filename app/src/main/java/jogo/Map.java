@@ -58,7 +58,13 @@ public class Map {
         // Nós de Finalização (Boss)
         DefaultMutableTreeNode elefanteEsquerda = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
         DefaultMutableTreeNode elefanteMeio = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
-        DefaultMutableTreeNode elfanteDireita = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
+        DefaultMutableTreeNode elefanteDireita = new DefaultMutableTreeNode(new Sala("Cachoeira do Elefante", elefante, "elefante.txt"));
+
+        DefaultMutableTreeNode bonfire = new DefaultMutableTreeNode(new Sala("Fogueira", null, null));
+        DefaultMutableTreeNode store = new DefaultMutableTreeNode(new Sala("Loja", null, null));
+        DefaultMutableTreeNode choices1 = new DefaultMutableTreeNode(new Sala("Um Baú Suspeito", null, null));
+        DefaultMutableTreeNode choices2 = new DefaultMutableTreeNode(new Sala("Rato esquisito", null, null));
+        DefaultMutableTreeNode choices3 = new DefaultMutableTreeNode(new Sala("Hater do Kanye West", null, null));
 
         // 2. Montagem da estrutura (Definição de Pais e Filhos)
         
@@ -68,18 +74,27 @@ public class Map {
         entrada.add(salaDireita);
 
         // Estruturação do Caminho Esquerdo
-        salaEsquerda.add(ninhoRato);
-        ninhoRato.add(descansoUrso); 
-        descansoUrso.add(elefanteEsquerda); 
+        salaEsquerda.add(choices2);
+        choices2.add(ninhoRato);
+        ninhoRato.add(bonfire);
+        bonfire.add(descansoUrso);
+        descansoUrso.add(store);
+        store.add(elefanteEsquerda); 
 
         // Estruturação do Caminho Central
         salaMeio.add(cantoCabra);   
-        cantoCabra.add(kanyeWest);
-        kanyeWest.add(elefanteMeio);    
+        cantoCabra.add(choices3);
+        choices3.add(store);
+        store.add(kanyeWest);
+        kanyeWest.add(bonfire); 
+        bonfire.add(elefanteMeio);   
 
         // Estruturação do Caminho Direito
         salaDireita.add(ninhoCobra); 
-        ninhoCobra.add(arvoreMacaco);
-        arvoreMacaco.add(elfanteDireita);
+        ninhoCobra.add(choices1);
+        choices1.add(bonfire);
+        bonfire.add(arvoreMacaco);
+        arvoreMacaco.add(store);
+        store.add(elefanteDireita);
     }
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class EntityTest {
 
     private Hero createTestEntity(int health, int shield) {
-        return new Hero("Teste", health, shield, 10, 5, 10);
+        return new Hero("Teste", health, shield, 10, 5, 10, 0);
     }
 
     @Test

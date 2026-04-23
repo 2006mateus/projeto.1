@@ -20,8 +20,8 @@ public class StrengthCard extends Cards {
      * @param bonus       O valor numérico do aumento de força.
      * @param stacks      A quantidade de turnos/ativações que o bônus durará.
      */
-    public StrengthCard(String name, String effectName, String description, int cost, int bonus, int stacks) {
-        super(name, description, cost);
+    public StrengthCard(String name, String effectName, String description, int cost, int bonus, int stacks, int price) {
+        super(name, description, cost, price);
         this.bonus = bonus;
         this.effectName = effectName;
         this.stacks = stacks;

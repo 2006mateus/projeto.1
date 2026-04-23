@@ -16,8 +16,8 @@ public class DamageCard extends Cards {
      * @param cost        O custo de energia para usar a carta.
      * @param damage      O valor base de dano que a carta causa.
      */
-    public DamageCard(String name, String description, int cost, int damage) {
-        super(name, description, cost);
+    public DamageCard(String name, String description, int cost, int damage, int price) {
+        super(name, description, cost, price);
         this.damage = damage;
     }
 

@@ -19,17 +19,22 @@ public abstract class Cards {
     /** Custo de pontos de ação ou energia necessário para utilizar a carta. */
     protected int cost;
 
+    /** Preço da carta. */
+    protected int price;
+
     /**
      * Construtor para inicializar os atributos básicos de uma carta.
      *
      * @param name        O nome da carta.
      * @param description A descrição detalhada do efeito da carta.
      * @param cost        O custo de uso da carta.
+     * @param price       O preço da carta.
      */
-    public Cards(String name, String description, int cost){
+    public Cards(String name, String description, int cost, int price){
         this.name = name;
         this.description = description;
         this.cost = cost;
+        this.price = price;
     }
 
     /**
@@ -57,6 +62,15 @@ public abstract class Cards {
      */
     public int getCost(){
         return cost;
+    }
+
+    /**
+     * Recupera o preço da carta.
+     *
+     * @return O valor inteiro representando o preço.
+     */
+    public int getPrice(){
+        return price;
     }
 
     /**

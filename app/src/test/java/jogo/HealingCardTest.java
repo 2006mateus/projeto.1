@@ -8,10 +8,10 @@ public class HealingCardTest {
     @Test
     public void testHealingEffect() {
 
-        Hero user = new Hero("Teste", 50, 0, 10, 0, 10); 
+        Hero user = new Hero("Teste", 50, 0, 10, 0, 10, 0); 
         Publisher pub = new Publisher();
 
-        HealingCard card = new HealingCard("Poção", "Cura 30", 1, 30);
+        HealingCard card = new HealingCard("Poção", "Cura 30", 1, 30, 1);
 
         user.takeDamage(40);
         card.use(user, null, pub);
@@ -22,8 +22,8 @@ public class HealingCardTest {
     @Test
     public void testHealingAtMaxHealth() {
 
-        Hero user = new Hero("Teste", 50, 0, 10, 0, 10);
-        HealingCard card = new HealingCard("Poção Grande", "Cura 50", 1, 50);
+        Hero user = new Hero("Teste", 50, 0, 10, 0, 10, 0);
+        HealingCard card = new HealingCard("Poção Grande", "Cura 50", 1, 50, 1);
 
         user.takeDamage(40);
         card.use(user, null, new Publisher());
@@ -33,7 +33,7 @@ public class HealingCardTest {
 
     @Test
     public void testGetHealingGetter() {
-        HealingCard card = new HealingCard("Cura", "Desc", 1, 20);
+        HealingCard card = new HealingCard("Cura", "Desc", 1, 20, 1);
         // Garante cobertura do getter específico da classe
         assertEquals(20, card.getHealing());
     }

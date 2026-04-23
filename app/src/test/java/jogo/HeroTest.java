@@ -7,7 +7,7 @@ public class HeroTest {
 
     @Test
     public void testHeroInitialStats() {
-        Hero hero = new Hero("Teste", 100, 10, 5, 50, 10);
+        Hero hero = new Hero("Teste", 100, 10, 5, 50, 10, 0);
 
         assertEquals("Teste", hero.getName());
         assertEquals(100, hero.getHealth());
@@ -17,7 +17,7 @@ public class HeroTest {
 
     @Test
     public void testLoseEnergySuccess() {
-        Hero hero = new Hero("Teste", 100, 0, 10, 0, 10);
+        Hero hero = new Hero("Teste", 100, 0, 10, 0, 10, 0);
         
         hero.loseEnergy(4);
         
@@ -26,14 +26,14 @@ public class HeroTest {
 
     @Test
     public void testLoseEnergyInsufficient() {
-        Hero hero = new Hero("Teste", 100, 0, 3, 0, 10);
+        Hero hero = new Hero("Teste", 100, 0, 3, 0, 10, 0);
         hero.loseEnergy(5);
         assertEquals(3, hero.getEnergy(), "A energia não deve mudar se o custo for maior que o atual");
     }
 
     @Test
     public void testSetEnergyBehavior() {
-        Hero hero = new Hero("Teste", 100, 0, 5, 0, 10);
+        Hero hero = new Hero("Teste", 100, 0, 5, 0, 10, 0);
         hero.setEnergy(999);
         
         assertEquals(10, hero.getEnergy(), "O setEnergy deve definir o valor fixo de 10 conforme o código");
@@ -41,7 +41,7 @@ public class HeroTest {
 
     @Test
     public void testInheritedEntityMethods() {
-        Hero hero = new Hero("Teste", 100, 0, 10, 100, 10);
+        Hero hero = new Hero("Teste", 100, 0, 10, 100, 10, 0);
         
         hero.gainShield(20);
         assertEquals(20, hero.getShield());

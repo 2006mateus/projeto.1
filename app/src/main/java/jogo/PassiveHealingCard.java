@@ -21,8 +21,8 @@ public class PassiveHealingCard extends Cards {
      * @param healing     A quantidade de cura (imediata e por stack).
      * @param stacks      O número de vezes/turnos que a cura passiva será ativada.
      */
-    public PassiveHealingCard(String name, String effectName, String description, int cost, int healing, int stacks) {
-        super(name, description, cost);
+    public PassiveHealingCard(String name, String effectName, String description, int cost, int healing, int stacks, int price) {
+        super(name, description, cost, price);
         this.healing = healing;
         this.effectName = effectName;
         this.stacks = stacks;

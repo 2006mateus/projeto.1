@@ -8,11 +8,11 @@ public class DamageCardTest {
     @Test
     public void testDamageWithStrengthBonus() {
 
-        Hero user = new Hero("Explorador", 100, 0, 100, 0, 10);
+        Hero user = new Hero("Explorador", 100, 0, 100, 0, 10, 0);
         Enemy enemy = new Enemy("Rato", 50, 0, 50, 0);
         Publisher pub = new Publisher();
 
-        DamageCard card = new DamageCard("Golpe Forte", "Dano", 1, 10);
+        DamageCard card = new DamageCard("Golpe Forte", "Dano", 1, 10, 1);
 
         card.use(user, enemy, pub);
         assertEquals(40, enemy.getHealth(), "Deveria causar 10 de dano (50 - 10)");
@@ -27,7 +27,7 @@ public class DamageCardTest {
 
     @Test
     public void testGetDamageGetter() {
-        DamageCard card = new DamageCard("Espada", "Desc", 1, 20);
+        DamageCard card = new DamageCard("Espada", "Desc", 1, 20, 1);
         assertEquals(20, card.getDamage());
     }
 }

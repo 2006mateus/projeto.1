@@ -15,8 +15,8 @@ public class HealingCard extends Cards {
      * @param cost        O custo de recursos (energia/mana) para usar a carta.
      * @param healing     O valor bruto de cura fornecido pela carta.
      */
-    public HealingCard(String name, String description, int cost, int healing) {
-        super(name, description, cost);
+    public HealingCard(String name, String description, int cost, int healing, int price) {
+        super(name, description, cost, price);
         this.healing = healing;
     }
 

@@ -38,7 +38,7 @@ public class App {
         nome = reader.next();
         
         // Inicialização do Herói com atributos: Nome, HP, XP, Atk base, Def base.
-        Hero explorador = new Hero(nome, 100, 0, 10, 20, 10);
+        Hero explorador = new Hero(nome, 100, 0, 10, 20, 10, 0);
         
         // Definição do bestiário (Inimigos iniciais, intermediários e o Boss Final)
         Enemy rato = new Enemy("Rato de academia", 20, 0, 15, 0);
@@ -52,17 +52,17 @@ public class App {
         Enemy elefante = new Enemy("Elefante", 120, 0, 35, 0);
 
         // Instanciação das cartas de diferentes tipos para o inventário/baralho
-        DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10);
-        DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12);
-        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 5, 2, 5, 3);
-        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 1, 5, 1);
-        DamageCard pistola = new DamageCard("pistola", "uma pistola praticamente emperrada, contém apenas uma bala", 5, 15);
-        ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 3, 10);
-        ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 4, 15);
-        ShieldCard colete = new ShieldCard("colete", "um colete a prova de balas remendado", 5, 20);
-        HealingCard bandagem = new HealingCard("bandagem", "Uma bandagem relativamente suja", 2, 12);
-        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30);
-        PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3);
+        DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10, 30);
+        DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12, 40);
+        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 5, 2, 5, 3, 40);
+        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 1, 5, 1, 40);
+        DamageCard pistola = new DamageCard("pistola", "uma pistola praticamente emperrada, contém apenas uma bala", 5, 15, 30);
+        ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 3, 10, 30);
+        ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 4, 15, 20);
+        ShieldCard colete = new ShieldCard("colete", "um colete a prova de balas remendado", 5, 20, 30);
+        HealingCard bandagem = new HealingCard("bandagem", "Uma bandagem relativamente suja", 2, 12, 40);
+        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30, 40);
+        PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3, 40);
 
         // Preenchimento do baralho inicial do jogador com cópias das cartas disponíveis
         for (int i = 0; i < 2; i += 1) {
@@ -109,6 +109,8 @@ public class App {
                 // Se a batalha resultar em derrota, encerra o loop
                 if (!result) {
                     break;
+                } else if (result){
+                    battle.recompensa(explorador);
                 }
             }
 

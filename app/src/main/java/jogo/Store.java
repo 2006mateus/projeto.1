@@ -5,23 +5,24 @@ import java.util.Scanner;
 
 public class Store extends Evento {
     // Lista de cartas que a loja tem para vender nesta visita
-    private ArrayList<Card> stock = new ArrayList<>();
+    private ArrayList<Cards> stock = new ArrayList<>();
 
-    public Store() {
-        // No construtor, você pode popular a loja com cartas fixas
-        // Ou criar um método para passar cartas específicas via Map
+    public Store(Cards... itensVender) {
+        for (Cards c : itensVender){
+            this.stock.add(c);
+        }
     }
 
     /**
      * Adiciona uma carta ao estoque da loja com um preço definido.
      * Dica: Você precisará garantir que a classe Card tenha um atributo 'price'.
      */
-    public void addCardToStock(Card card) {
+    public void addCardToStock(Cards card) {
         stock.add(card);
     }
 
     @Override
-    public void start(Hero explorer, CardsManager deckSystem, Scanner reader) {
+    public boolean start(Hero explorer, Enemy inimigo, CardsManager deckSystem, Scanner reader, Publisher p, String fileTxt) {
         boolean shopping = true;
 
         while (shopping) {
@@ -49,6 +50,7 @@ public class Store extends Evento {
                     System.out.println("Opção inválida.");
             }
         }
+        return true;
     }
 
     private void buyMenu(Hero explorer, CardsManager deckSystem, Scanner reader) {
@@ -59,19 +61,19 @@ public class Store extends Evento {
 
         System.out.println("\n--- ITENS À VENDA ---");
         for (int i = 0; i < stock.size(); i++) {
-            Card c = stock.get(i);
-            System.out.println((i + 1) + ". " + c.getNome() + " [" + c.getPrice() + "g]");
+            Cards c = stock.get(i);
+            System.out.println((i + 1) + ". " + c.getName() + " [" + c.getPrice() + "g]");
         }
         System.out.println((stock.size() + 1) + ". Voltar");
 
         int option = reader.nextInt();
         if (option > 0 && option <= stock.size()) {
-            Card chosen = stock.get(option - 1);
+            Cards chosen = stock.get(option - 1);
             if (explorer.getGold() >= chosen.getPrice()) {
-                explorer.setGold(explorer.getGold() - chosen.getPrice());
+                explorer.loseGold(chosen.getPrice());
                 deckSystem.addCard(chosen);
                 stock.remove(chosen); // Remove da loja após comprar
-                System.out.println("Você comprou: " + chosen.getNome());
+                System.out.println("Você comprou: " + chosen.getName());
             } else {
                 System.out.println("Ouro insuficiente!");
             }
@@ -80,7 +82,7 @@ public class Store extends Evento {
 
     private void sellMenu(Hero explorer, CardsManager deckSystem, Scanner reader) {
         // Aqui você acessa as cartas que o jogador já tem
-        ArrayList<Card> playerDeck = deckSystem.getDeck(); 
+        ArrayList<Cards> playerDeck = deckSystem.getDeck();
         
         if (playerDeck.isEmpty()) {
             System.out.println("Você não tem cartas para vender!");
@@ -89,20 +91,20 @@ public class Store extends Evento {
 
         System.out.println("\n--- SEU BARALHO (Venda por 50% do valor) ---");
         for (int i = 0; i < playerDeck.size(); i++) {
-            Card c = playerDeck.get(i);
+            Cards c = playerDeck.get(i);
             int sellValue = c.getPrice() / 2;
-            System.out.println((i + 1) + ". " + c.getNome() + " [Ganha " + sellValue + "g]");
+            System.out.println((i + 1) + ". " + c.getName() + " [Ganha " + sellValue + "g]");
         }
         System.out.println((playerDeck.size() + 1) + ". Voltar");
 
         int option = reader.nextInt();
         if (option > 0 && option <= playerDeck.size()) {
-            Card sold = playerDeck.get(option - 1);
+            Cards sold = playerDeck.get(option - 1);
             int profit = sold.getPrice() / 2;
             
-            explorer.setGold(explorer.getGold() + profit);
+            explorer.gainGold(profit);
             deckSystem.removeCard(sold); // Você precisará desse método no CardsManager
-            System.out.println("Vendeu " + sold.getNome() + " por " + profit + "g.");
+            System.out.println("Vendeu " + sold.getName() + " por " + profit + "g.");
         }
     }
 }

@@ -20,10 +20,11 @@ public class Hero extends Entity {
      * @param energy    Quantidade inicial de energia.
      * @param maxShield Limite máximo de escudo permitido.
      */
-    public Hero(String name, int health, int shield, int energy, int maxShield, int maxEnergy) {
+    public Hero(String name, int health, int shield, int energy, int maxShield, int maxEnergy, int gold) {
         super(name, health, shield, maxShield);
         this.energy = energy;
         this.maxEnergy = maxEnergy;
+        this.gold = gold;
     }
 
     /**

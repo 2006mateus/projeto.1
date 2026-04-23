@@ -196,4 +196,12 @@ public class CardsManager {
         Collections.shuffle(deck); 
         System.out.println("O deck foi re-embaralhado com as cartas restantes!");
     }
+
+    public void removeCard(Cards card) {
+        deck.remove(card);
+    }
+
+    public ArrayList<Cards> getDeck(){
+        return this.deck;
+    }
 }
