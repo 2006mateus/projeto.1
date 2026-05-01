@@ -9,7 +9,6 @@ import java.util.Scanner;
  * A loja permite que o herói utilize seu ouro acumulado para adquirir novas cartas 
  * para o baralho ou venda cartas existentes (removendo-as do deck) para obter ouro extra.
  * </p>
- * * @author [Seu Nome/Equipe]
  * @version 1.0
  */
 public class Store extends Evento {
