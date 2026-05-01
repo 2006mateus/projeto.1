@@ -73,3 +73,7 @@ O projeto é automatizado via Gradle.
 
 - Para iniciar a jornada:
   ./gradlew run
+
+CONTRIBUIÇÃO DE IA GENERATIVA
+----------------------------
+A documentação Javadoc dos arquivos Java e parte deste README foram feitos com o auxílio de inteligências articifiais generativas (como Gemini). Além disso, esses modelos auxiliaram no aprendizado do uso das bibliotecas de estruturas de dados (como DefaulMutableTreeNode) e dos padrões de projeto (como strategy e observer).
