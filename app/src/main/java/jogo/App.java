@@ -6,29 +6,35 @@ import javax.swing.tree.DefaultMutableTreeNode;
 /**
  * Classe principal que orquestra a execução do jogo.
  * <p>
- * Esta classe é responsável por inicializar os componentes do sistema, 
- * configurar o herói, os inimigos, o catálogo de cartas e gerenciar o loop 
- * principal de gameplay, incluindo a navegação entre salas e o início de batalhas.
+ * Esta classe é o ponto central (entry point) do sistema, responsável por:
+ * <ul>
+ * <li>Inicializar os componentes globais (Scanner, CardsManager, Publisher).</li>
+ * <li>Configurar as entidades (Herói e Inimigos) e o catálogo de cartas.</li>
+ * <li>Construir a estrutura do mapa e gerenciar o fluxo de navegação entre salas.</li>
+ * <li>Controlar o ciclo de vida da partida (Combate, Eventos e Condição de Vitória).</li>
+ * </ul>
  * </p>
+ * @version 1.0
  */
 public class App {
     
     /**
-     * Ponto de entrada do aplicativo.
+     * Ponto de entrada do aplicativo (Método Main).
      * <p>
-     * O método realiza as seguintes etapas:
-     * 1. Solicita o nome do Herói ao usuário.
-     * 2. Instancia os inimigos e o catálogo de cartas (Dano, Cura, Escudo, Veneno, Força).
-     * 3. Configura o baralho inicial (deckSystem) e o mapa do jogo.
-     * 4. Gerencia o fluxo de navegação através de uma estrutura de árvore (DefaultMutableTreeNode).
-     * 5. Aciona o sistema de combate em salas que possuem inimigos.
+     * O método executa o fluxo principal divido em:
+     * 1. <b>Setup:</b> Inicializa o herói com atributos base (HP, Energia, Gold) e cria o bestiário.
+     * 2. <b>Deck Building:</b> Preenche o baralho do jogador com cartas de diferentes categorias.
+     * 3. <b>World Building:</b> Invoca o {@link Map} para organizar as salas em uma estrutura de árvore.
+     * 4. <b>Game Loop:</b> Mantém o jogador em um ciclo de navegação, processando eventos e batalhas 
+     * até que a vida do herói chegue a zero ou o boss final seja derrotado.
      * </p>
-     * * @param args Argumentos de linha de comando (não utilizados).
+     * * @param args Argumentos de linha de comando (não utilizados neste projeto).
      */
     public static void main(String[] args){
 
         String nome;
 
+        // Inicialização de utilitários de sistema e gerenciadores
         Scanner reader = new Scanner(System.in);
         CardsManager deckSystem = new CardsManager();
         Publisher publisher = new Publisher();
@@ -37,34 +43,47 @@ public class App {
         System.out.println("Digite o nome de seu heroi:");
         nome = reader.next();
         
-        // Inicialização do Herói com atributos: Nome, HP, XP, Atk base, Def base.
+        /** * Inicialização do Herói.
+         * Parâmetros: Nome, HP, Shield, Energy, MaxShield, MaxEnergy, Gold.
+         */
         Hero explorador = new Hero(nome, 100, 0, 10, 20, 10, 0);
         
-        // Definição do bestiário (Inimigos iniciais, intermediários e o Boss Final)
+        /** * Definição do bestiário.
+         * Cria instâncias de inimigos para serem distribuídas nas salas do mapa.
+         */
         Enemy rato = new Enemy("Rato de academia", 20, 0, 15, 0);
         Enemy cabra = new Enemy("Cabra", 25, 0, 10, 0);
         Enemy cobra = new Enemy("Cobra", 30, 0, 20, 0);
-
         Enemy urso = new Enemy("Urso", 50, 0, 25, 0);
         Enemy kanye = new Enemy("GOAT", 55, 0, 25, 0);
         Enemy macaco = new Enemy("Macaco", 45, 0, 20, 0);
-
         Enemy elefante = new Enemy("Elefante", 120, 0, 35, 0);
 
-        // Instanciação das cartas de diferentes tipos para o inventário/baralho
-        DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado, ele aparenta estar bem proximo de quebrar.", 3, 10, 30);
-        DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum, provavelmente já foi muito utilizada na cozinha", 4, 12, 40);
-        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Um dardo de caça proveniente de tribos da regiao, aparenta ser venenoso.", 5, 2, 5, 3, 40);
-        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Um oculos de grau danificado, apesar de sua aparencia funciona perfeitamente...", 1, 5, 1, 40);
-        DamageCard pistola = new DamageCard("pistola", "uma pistola praticamente emperrada, contém apenas uma bala", 5, 15, 30);
-        ShieldCard luva = new ShieldCard("luva velha", "Uma luva velha, aparenta ter sido para algum esporte ha muito tempo.", 3, 10, 30);
-        ShieldCard capacete = new ShieldCard("capacete", "Um capacete de construção encontrado em uma obra", 4, 15, 20);
-        ShieldCard colete = new ShieldCard("colete", "um colete a prova de balas remendado", 5, 20, 30);
-        HealingCard bandagem = new HealingCard("bandagem", "Uma bandagem relativamente suja", 2, 12, 40);
-        HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30, 40);
-        PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3, 40);
+        /**
+         * Criação do catálogo de cartas.
+         * Inclui cartas de Dano, Veneno, Força, Escudo e Cura.
+         */
+        DamageCard bastao = new DamageCard("bastao", "Um bastao enferrujado...", 3, 10, 30);
+        DamageCard faca = new DamageCard("faca", "Uma faca de cozinha comum...", 4, 12, 40);
+        VenomCard Dardo = new VenomCard("Dardo", "veneno de dardo", "Dardo de caça...", 5, 2, 5, 3, 40);
+        StrengthCard oculos = new StrengthCard("oculos velhos", "foco", "Oculos de grau...", 1, 5, 1, 40);
+        DamageCard pistola = new DamageCard("pistola", "pistola emperrada...", 5, 15, 30);
+        ShieldCard luva = new ShieldCard("luva velha", "Luva de esporte...", 3, 10, 30);
+        ShieldCard capacete = new ShieldCard("capacete", "Capacete de construção...", 4, 15, 20);
+        ShieldCard colete = new ShieldCard("colete", "Colete remendado...", 5, 20, 30);
+        HealingCard bandagem = new HealingCard("bandagem", "Bandagem suja...", 2, 12, 40);
+        HealingCard medkit = new HealingCard("medkit", "Kit médico quebrado...", 5, 30, 40);
+        PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "Injeção de analgésico...", 3, 5, 3, 40);
 
-        // Preenchimento do baralho inicial do jogador com cópias das cartas disponíveis
+        // Cartas exclusivas para o inventário da loja
+        DamageCard machado = new DamageCard("Machado de Batalha", "Lâmina dupla devastadora.", 6, 25, 80);
+        ShieldCard escudoTatico = new ShieldCard("Escudo Tático", "Policarbonato resistente.", 5, 30, 80);
+        HealingCard soro = new HealingCard("Soro Militar", "Biotecnologia regenerativa.", 4, 40, 100);
+
+        /**
+         * Preenchimento do baralho inicial.
+         * Adiciona cópias das cartas instanciadas ao sistema de gerenciamento de deck.
+         */
         for (int i = 0; i < 2; i += 1) {
             deckSystem.addCard(luva);
             deckSystem.addCard(faca);
@@ -79,19 +98,21 @@ public class App {
             deckSystem.addCard(injecao);
         }
 
-        // Organização da estrutura lógica do mapa (árvore de salas)
+        /**
+         * Inicialização do Mapa.
+         * Constrói a árvore de salas e posiciona os inimigos e itens nos nós.
+         */
         Map gameMap = new Map();
-        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, elefante);
+        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, elefante, machado, escudoTatico, soro);
 
-        // Apontador para a posição atual do jogador na árvore do mapa
+        // Define o ponto de partida do jogador (raiz da árvore)
         DefaultMutableTreeNode salaAtual = gameMap.entrada;
         
         boolean result = true;
 
         /**
-         * Loop principal do jogo.
-         * Continua enquanto o jogador estiver vivo (result == true) 
-         * ou até atingir o estado final (folha da árvore).
+         * Ciclo de Vida Principal (Game Loop).
+         * O loop é interrompido se o herói morrer ou se o jogador vencer o Boss final.
          */
         while (result){
 
@@ -101,26 +122,39 @@ public class App {
             System.out.println("Você está em: " + salaAtualDados.getNome());
             ConsoleUI.pause(1000);
             
-            // Lógica de Combate: Acionada se a sala possuir um inimigo instanciado
+            /** * Processamento de Eventos.
+             * Verifica se a sala contém um evento não-combate (ex: Loja, Fogueira).
+             */
+            if (salaAtualDados.getEvent() != null) {
+                result = salaAtualDados.getEvent().start(explorador, null, deckSystem, reader, publisher, "");
+            }
+            
+            /** * Processamento de Combate.
+             * Acionado se a sala possuir um inimigo. A batalha define o valor de 'result'.
+             */
             if (salaAtualDados.getInimigo() != null) {
 
                 result = battle.start(explorador, salaAtualDados.getInimigo(), deckSystem, reader, publisher, salaAtualDados.getFileTxt());
                 
-                // Se a batalha resultar em derrota, encerra o loop
+                // Encerra o loop em caso de derrota
                 if (!result) {
                     break;
-                } else if (result){
+                } else {
                     battle.recompensa(explorador);
                 }
             }
 
-            // Condição de Vitória: O jogador chegou a uma sala sem saídas (Folha)
+            /** * Verificação de Condição de Vitória.
+             * Uma sala folha (leaf) sem filhos representa o fim do jogo.
+             */
             if (salaAtual.isLeaf()) {
                 System.out.println("\nVOCÊ ZEROU O JOGO! Parabéns!");
                 break;
             }
 
-            // Lógica de Navegação: Apresenta as opções de caminhos (nós filhos)
+            /** * Gerenciamento de Navegação.
+             * Lista os nós filhos da sala atual para o jogador escolher o próximo destino.
+             */
             System.out.println("\nEscolha seu caminho:");
             int numeroDePortas = salaAtual.getChildCount();
 
@@ -131,9 +165,9 @@ public class App {
                 System.out.println("Digite " + (i + 1) + " para ir para " + salaDaPorta.getNome());
             }
 
+            // Captura da escolha do usuário e movimentação na árvore
             int choice = reader.nextInt();
 
-            // Validação de entrada e atualização do nó atual
             if (choice >= 1 && choice <= numeroDePortas) {
                 salaAtual = (DefaultMutableTreeNode) salaAtual.getChildAt(choice - 1);
             } else {
@@ -142,6 +176,7 @@ public class App {
             }
         }
 
+        // Encerramento do recurso de leitura
         reader.close();
     }
 }

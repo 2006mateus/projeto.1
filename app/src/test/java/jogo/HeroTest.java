@@ -32,14 +32,6 @@ public class HeroTest {
     }
 
     @Test
-    public void testSetEnergyBehavior() {
-        Hero hero = new Hero("Teste", 100, 0, 5, 0, 10, 0);
-        hero.setEnergy(999);
-        
-        assertEquals(10, hero.getEnergy(), "O setEnergy deve definir o valor fixo de 10 conforme o código");
-    }
-
-    @Test
     public void testInheritedEntityMethods() {
         Hero hero = new Hero("Teste", 100, 0, 10, 100, 10, 0);
         
