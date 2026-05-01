@@ -16,18 +16,17 @@ public class Bonfire extends Evento {
         System.out.println("============================================================");
 
         for (BonfireStrategy strategy : opcoes) {
-            System.out.println("- " + strategy.getDescription());
+            System.out.println(strategy.getInt() + " - " + strategy.getDescription());
         }
 
-        Scanner scan = new Scanner(System.in);
         boolean correct = false;
 
         while (!correct) {
 
-            String comando = scan.nextLine();
+            int comando = scanner.nextInt();
 
             for (BonfireStrategy s : opcoes) {
-                if (comando.equalsIgnoreCase(s.getDescription())) {
+                if (comando == s.getInt()) {
                     s.execute(explorer);
                     correct = true;
                     break;
@@ -38,7 +37,6 @@ public class Bonfire extends Evento {
                 System.out.println("Escreva um comando valido!");
             }
         }
-        scan.close();
         return true;
     }
 }

@@ -13,4 +13,9 @@ public class EnergyStrategy implements BonfireStrategy {
     public String getDescription() {
         return "Polimento: Aumente sua energia máxima em 10%";
     }
+
+    @Override
+    public int getInt() {
+        return 2;
+    }
 }

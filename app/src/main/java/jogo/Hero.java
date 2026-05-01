@@ -55,8 +55,8 @@ public class Hero extends Entity {
      *
      * @param energia O valor de energia.
      */
-    public void setEnergy(int energia) {
-        this.energy = 10;
+    public void setEnergy(double energia) {
+        this.energy = energia;
     }
 
     public double getMaxEnergy(){

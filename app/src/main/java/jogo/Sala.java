@@ -19,6 +19,8 @@ public class Sala {
     /** O nome do arquivo .txt (ex: "urso.txt") que contém a arte ASCII deste cenário. */
     private String fileTxt;
 
+    private Evento event;
+
     /**
      * Construtor para criar uma nova sala.
      *
@@ -29,7 +31,31 @@ public class Sala {
     public Sala(String nome, Enemy inimigo, String fileTxt) {
         this.nome = nome;
         this.inimigo = inimigo;
+        this.event = null;
         this.fileTxt = fileTxt;
+    }
+
+
+    public Sala(String nome, Evento event, String fileTxt) {
+        this.nome = nome;
+        this.inimigo = null;
+        this.event = event;
+        this.fileTxt = fileTxt;
+    }
+
+    public Sala(String nome) {
+        this.nome = nome;
+        this.inimigo = null;
+        this.event = null;
+        this.fileTxt = null;
+    }
+
+    // Adicione este 4º construtor no seu Sala.java
+    public Sala(String nome, Evento event) {
+        this.nome = nome;
+        this.inimigo = null;
+        this.event = event;
+        this.fileTxt = null; // Como não tem arte, fica null
     }
 
     /**
@@ -54,5 +80,9 @@ public class Sala {
      */
     public String getFileTxt() { 
         return fileTxt; 
+    }
+
+    public Evento getEvent() {
+        return event;
     }
 }

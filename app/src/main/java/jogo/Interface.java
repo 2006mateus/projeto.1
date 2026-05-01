@@ -50,7 +50,7 @@ public class Interface {
 
             // Lógica de início de turno: Reset de escudo e energia
             explorador.setShield(0);
-            explorador.setEnergy(10);
+            explorador.setEnergy(explorador.getMaxEnergy());
             System.out.println("====================");
             System.out.println(inimigo.getName() + " irá atacar causando " + inimigo.getDamage() + " de dano");
             System.out.println("Selecione 1 para comprar cartas ou 2 para não. " + deckSystem.getQuantityDeck() + " restantes");

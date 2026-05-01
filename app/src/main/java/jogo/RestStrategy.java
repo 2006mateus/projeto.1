@@ -13,4 +13,9 @@ public class RestStrategy implements BonfireStrategy{
     public String getDescription() {
         return "Descanso profundo: Recupere cerca de 30% da sua vida máxima";
     }
+
+    @Override
+    public int getInt() {
+        return 1;
+    }
 }

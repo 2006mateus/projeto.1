@@ -64,6 +64,11 @@ public class App {
         HealingCard medkit = new HealingCard("medkit", "Um kit médico quebrado, ainda deve servir", 5, 30, 40);
         PassiveHealingCard injecao = new PassiveHealingCard("injecao", "analgesico", "uma injecao de analgesico, parece que pode ajudar", 3, 5, 3, 40);
 
+        // Cartas para a Loja
+        DamageCard machado = new DamageCard("Machado de Batalha", "Um machado pesado de lâmina dupla. Exige muita energia, mas causa um estrago devastador.", 6, 25, 80);
+        ShieldCard escudoTatico = new ShieldCard("Escudo Tático", "Um escudo antimotim de policarbonato. Extremamente resistente a impactos pesados.", 5, 30, 80);
+        HealingCard soro = new HealingCard("Soro Militar", "Uma injeção de biotecnologia militar. Cura feridas graves quase que instantaneamente.", 4, 40, 100);
+
         // Preenchimento do baralho inicial do jogador com cópias das cartas disponíveis
         for (int i = 0; i < 2; i += 1) {
             deckSystem.addCard(luva);
@@ -81,7 +86,7 @@ public class App {
 
         // Organização da estrutura lógica do mapa (árvore de salas)
         Map gameMap = new Map();
-        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, elefante);
+        gameMap.organizeMap(rato, urso, cabra, kanye, cobra, macaco, elefante, machado, escudoTatico, soro);
 
         // Apontador para a posição atual do jogador na árvore do mapa
         DefaultMutableTreeNode salaAtual = gameMap.entrada;
@@ -100,6 +105,10 @@ public class App {
             System.out.println("\n-----------------------------------------");
             System.out.println("Você está em: " + salaAtualDados.getNome());
             ConsoleUI.pause(1000);
+            
+            if (salaAtualDados.getEvent() != null) {
+                result = salaAtualDados.getEvent().start(explorador, null, deckSystem, reader, publisher, "");
+            }
             
             // Lógica de Combate: Acionada se a sala possuir um inimigo instanciado
             if (salaAtualDados.getInimigo() != null) {
